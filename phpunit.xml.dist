@@ -18,11 +18,8 @@
     </php>
 
     <testsuites>
-        <testsuite name="Symfony Test Suite">
-            <directory>./src/Symfony/Bridge/*/Tests/</directory>
-            <directory>./src/Symfony/Component/*/Tests/</directory>
-            <directory>./src/Symfony/Component/*/*/Tests/</directory>
-            <directory>./src/Symfony/Bundle/*/Tests/</directory>
+        <testsuite name="WCF Test Suite">
+            <directory>./src/Pzs/Bundle/*/Tests/</directory>
         </testsuite>
     </testsuites>
 
@@ -34,15 +31,10 @@
 
     <filter>
         <whitelist>
-            <directory>./src/Symfony/</directory>
+            <directory>./src/Pzs/</directory>
             <exclude>
-                <directory>./src/Symfony/Bridge/*/Tests</directory>
-                <directory>./src/Symfony/Component/*/Tests</directory>
-                <directory>./src/Symfony/Component/*/*/Tests</directory>
-                <directory>./src/Symfony/Bundle/*/Tests</directory>
-                <directory>./src/Symfony/Bundle/*/Resources</directory>
-                <directory>./src/Symfony/Component/*/Resources</directory>
-                <directory>./src/Symfony/Component/*/*/Resources</directory>
+                <directory>./src/Pzs/Bundle/*/Tests</directory>
+                <directory>./src/Pzs/Bundle/*/Resources</directory>
             </exclude>
         </whitelist>
     </filter>
