@@ -24,9 +24,11 @@
 
 namespace Pzs\Bundle\WCFCoreBundle\Service\Language;
 
-use Symfony\Component\Templating\EngineInterface;
 use Pzs\Bundle\WCFCoreBundle\Entity\Language;
+use Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository;
 use Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository;
+
+use Symfony\Component\Templating\EngineInterface;
 
 /**
  * Manages the languages.
@@ -38,16 +40,43 @@ use Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository;
  */
 class LanguageService implements LanguageServiceInterface
 {
-	// TODO: Implement methods.
+	/**
+	 * The language repository.
+	 * @var \Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository
+	 */
+	private $languageRepository;
+	
+	/**
+	 * The language category repository.
+	 * @var \Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository
+	 */
+	private $languageCategoryRepository;
+	
+	/**
+	 * The default language id.
+	 * @var integer
+	 */
+	private $defaultLanguageID;
+	
+	/**
+	 * The current user language.
+	 * If no user is available, it contains null.
+	 * @var \Pzs\Bundle\WCFCoreBundle\Entity\Language|null
+	 */
+	private $currentLanguage;
 	
 	/**
 	 * Constructor.
 	 * 
-	 * @param \Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository $repository
+	 * @param \Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository $languageRepository
+	 * @param \Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository $languageCategoryRepository
 	 */
-	public function __construct(LanguageRepository $repository)
+	public function __construct(LanguageRepository $languageRepository, LanguageCategoryRepository $languageCategoryRepository)
 	{
-		
+		$this->languageRepository = $languageRepository;
+		$this->languageCategoryRepository = $languageCategoryRepository;
+		$this->defaultLanguageID = 0;
+		$this->currentLanguage = null;
 	}
 	
 	/**
@@ -55,7 +84,7 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getLanguage($languageID)
 	{
-		return null;
+		return $this->languageRepository->find($languageID);
 	}
 	
 	/**
@@ -63,7 +92,16 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getLanguageItem($languageItem)
 	{
-		return null;
+		$language = $this->getUserLanguage();
+		$languageItems = $language->getLanguageItems();
+		$languageItemValue = $languageItem;
+		
+		if ($languageItems->containsKey($languageItem))
+		{
+			$languageItemValue = $languageItems->get($languageItem)->getLanguageItemValue();
+		}
+		
+		return $languageItemValue;
 	}
 	
 	/**
@@ -71,7 +109,12 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getUserLanguage()
 	{
-		return null;
+		$userLanguage = $this->currentLanguage;
+		if ($userLanguage === null)
+		{
+			$userLanguage = $this->getLanguage($this->defaultLanguageID);
+		}
+		return $userLanguage; 
 	}
 	
 	/**
@@ -79,7 +122,7 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getLanguageByCode($languageCode)
 	{
-		return null;
+		return $this->languageRepository->findBy(array('languageCode' => $languageCode));
 	}
 	
 	/**
@@ -87,7 +130,8 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function isValidCategory($categoryName)
 	{
-		return false;
+		$category = $this->getCategory($categoryName);
+		return $category !== null;
 	}
 	
 	/**
@@ -95,7 +139,7 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getCategory($categoryName)
 	{
-		return null;
+		return $this->languageCategoryRepository->findBy(array('languageCategory' => $categoryName));
 	}
 	
 	/**
@@ -103,7 +147,7 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getCategoryByID($categoryID)
 	{
-		return null;
+		return $this->languageCategoryRepository->find($categoryID);
 	}
 	
 	/**
@@ -111,7 +155,7 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getCategories()
 	{
-		return array();
+		return $this->languageCategoryRepository->findAll();
 	}
 	
 	/**
@@ -119,7 +163,7 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getDefaultLanguageID()
 	{
-		return 0;
+		return $this->defaultLanguageID;
 	}
 	
 	/**
@@ -127,7 +171,7 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getLanguages()
 	{
-		return array();
+		return $this->languageRepository->findAll();
 	}
 	
 	/**
@@ -143,7 +187,7 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function setDefaultLanguage($languageID)
 	{
-		
+		$this->defaultLanguageID = intval($languageID);
 	}
 	
 	/**
@@ -151,6 +195,11 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getFixedLanguageCode(Language $language = null)
 	{
-		return '';
+		if ($language === null)
+		{
+			$language = $this->getUserLanguage();
+		}
+		$languageCode = $language->getLanguageCode();
+		return preg_replace('/-[a-z0-9]+/', '', $languageCode);
 	}
 }
