@@ -107,7 +107,7 @@ class LanguageCategory
      */
     public function addLanguageItem(\Pzs\Bundle\WCFCoreBundle\Entity\LanguageItem $languageItem)
     {
-        $this->languageItems[] = $languageItem;
+        $this->languageItems->set($languageItem->getLanguageItem(), $languageItem);
     
         return $this;
     }
