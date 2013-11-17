@@ -1,0 +1,72 @@
+<title>{% block title %}{{ lang(PAGE_TITLE) )}}{% endblock %}</title>
+{% block meta %}
+	<base href="{{ baseHref }}" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="format-detection" content="telephone=no" />
+	{% if allowSpidersToIndexThisPage is empty %}<meta name="robots" content="noindex,nofollow" />{% endif %}
+	{% block additionalMetaTags %}{% endblock %}
+{% endblock %}
+
+{% block javascript %}
+	<script data-relocate="true">
+		//<![CDATA[
+		var SID_ARG_2ND	= '{{ SID_ARG_2ND_NOT_ENCODED }}';
+		var SECURITY_TOKEN = '{{ SECURITY_TOKEN }}';
+		var LANGUAGE_ID = '{{ __languageService->getUserLanguage()->getLanguageID() }}';
+		var TIME_NOW = {{ TIME_NOW }};
+		//]]>
+	</script>
+	{% if JQUERY_SOURCE == 'google' %}
+		<script data-relocate="true" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
+		<script data-relocate="true" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	{% elseif JQUERY_SOURCE == 'microsoft' %}
+		<script data-relocate="true" src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.1.min.js"></script>
+		<script data-relocate="true" src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
+	{% elseif JQUERY_SOURCE == 'cloudflare' %}
+		<script data-relocate="true" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
+		<script data-relocate="true" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	{% else %}
+		<script data-relocate="true" src="{{ asset('bundles/pzswcfcore/js/3rdParty/jquery.min.js?v=' ~ wcfVersion ) }}"></script>
+		<script data-relocate="true" src="{{ asset('bundles/pzswcfcore/js/3rdParty/jquery-ui.min.js?v=' ~ wcfVersion ) }}"></script>
+	{% endif %}
+	
+	{% if JQUERY_SOURCE != 'local' %}
+		<script data-relocate="true">
+			//<![CDATA[
+			if (!window.jQuery) {
+				document.write("<script data-relocate=\"true\" src=\"{{ asset('bundles/pzswcfcore/js/3rdParty/jquery.min.js?v=' ~ wcfVersion ) }}\"><\/script>");
+				document.write("<script data-relocate=\"true\" src=\"{{ asset('bundles/pzswcfcore/js/3rdParty/jquery-ui.min.js?v=' ~ wcfVersion ) }}\"><\/script>");
+			}
+			//]]>
+		</script>
+	{% endif %}
+	{% if ENABLE_DEBUG_MODE != true %}
+		{% set ending = '.min.js' %}
+	{% else %}
+		{% set ending = '.js' %}
+	{% endif %}
+	<script data-relocate="true" src="{{ asset('bundles/pzswcfcore/js/3rdParty/jquery-ui.nestedSortable.' ~ ending ~ '?v=' ~ wcfVersion ) }}"></script>
+	<script data-relocate="true" src="{{ asset('bundles/pzswcfcore/js/3rdParty/jquery-ui.timepicker' ~ ending ~ '?v=' ~ wcfVersion ) }}"></script>
+	<script data-relocate="true" src="{{ asset('bundles/pzswcfcore/js/WCF' ~ ending ~ '?v=' ~ wcfVersion) }}"></script>
+	{% set userID = __userService->getUser()->getUserID() %}
+	{% set username = __userService->getUser()->getUsername() %}
+	<script data-relocate="true">
+		//<![CDATA[
+		WCF.User.init({{ userID }}, '{{ username|e("js") }}');
+		//]]>
+	</script>
+	<script data-relocate="true" src="{{ asset('bundles/pzswcfcore/js/WCF.Message' ~ ending ~ '?v=' ~ wcfVersion) }}"></script>
+	<script data-relocate="true" src="{{ asset('bundles/pzswcfcore/js/WCF.User' ~ ending ~ '?v=' ~ wcfVersion) }}"></script>
+	<script data-relocate="true" src="{{ asset('bundles/pzswcfcore/js/WCF.Like' ~ ending ~ '?v=' ~ wcfVersion) }}"></script>
+	{% block javascriptInclude %}{% endblock %}
+	
+	<!-- Stylesheets -->
+	{{ __styleService->getStylesheet() }}
+	{% block stylesheets %}{% endblock %}
+{% endblock %}
+{% block icons %}
+	<!-- Icons -->
+	<link rel="shortcut icon" href="{{ asset('bundles/pzswcfcore/images/favicon.ico') }}" />
+	<link rel="apple-touch-icon" href="{{ asset('bundles/pzswcfcore/images/apple-touch-icon.png') }}" />
+{% endblock %}

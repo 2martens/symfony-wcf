@@ -1,0 +1,6 @@
+#page:
+#	pattern:  /{controller}/{id}
+#	defaults: { _controller: PzsWCFCoreBundle:AbstractPage:, id: 0 }
+#	requirements:
+#		id:   \d+
+#		controller:	[A-Z][a-Z]+
