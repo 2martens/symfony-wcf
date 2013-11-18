@@ -24,6 +24,8 @@
 
 namespace Pzs\Bundle\WCFCoreBundle\Service\Cache;
 
+use Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder;
+
 /**
  * Provides functionality for caching.
  * 
@@ -35,31 +37,31 @@ namespace Pzs\Bundle\WCFCoreBundle\Service\Cache;
 interface CacheServiceInterface
 {
 	/**
-	 * Returns the cached value for the given name and parameters.
+	 * Returns the cached value for the given cache builder and parameters.
 	 * 
-	 * @param	string	$cacheName	the cache name has to exist, call isCacheExisting to verify
-	 * @param	array	$parameters	optional
+	 * @param	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder	$cacheBuilder	the cache builder
+	 * @param	array													$parameters		optional
 	 * 
 	 * @return	mixed
 	 */
-	public function get($cacheName, array $parameters = array());
+	public function get(ICacheBuilder $cacheBuilder, array $parameters = array());
 	
 	/**
 	 * Caches given data under given cacheName and parameters.
 	 * 
-	 * @param	string	$cacheName	the cache name must not exist, call isCacheExisting to verify
-	 * @param	array	$data
-	 * @param	array	$parameters	optional
+	 * @param	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder	$cacheBuilder	the cache builder
+	 * @param	array													$data
+	 * @param	array													$parameters		optional
 	 */
-	public function set($cacheName, array $data, array $parameters = array());
+	public function set(ICacheBuilder $cacheBuilder, array $data, array $parameters = array());
 	
 	/**
 	 * Sets the cache under cacheName with given parameters as outdated.
 	 * 
-	 * @param	string	$cacheName	the cache name has to exist, call isCacheExisting to verify
-	 * @param	array	$parameters	optional
+	 * @param	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder	$cacheBuilder	the cache builder
+	 * @param	array													$parameters		optional
 	 */
-	public function reset($cacheName, array $parameters = array());
+	public function reset(ICacheBuilder $cacheBuilder, array $parameters = array());
 	
 	/**
 	 * Resets all caches.
@@ -69,11 +71,10 @@ interface CacheServiceInterface
 	public function resetAll();
 	
 	/**
-	 * Returns true if a cache under the given cache name exists.
-	 * 
-	 * @param	string	$cacheName
-	 * 
-	 * @return	boolean
+	 * Returns cache index hash.
+	 *
+	 * @param	array	$parameters
+	 * @return	string
 	 */
-	public function isCacheExisting($cacheName);
+	public function getCacheIndex(array $parameters);
 }

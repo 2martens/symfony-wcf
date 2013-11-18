@@ -24,6 +24,9 @@
 
 namespace Pzs\Bundle\WCFCoreBundle\Service\Cache;
 
+use Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder;
+use Pzs\Bundle\WCFCoreBundle\Cache\Source\ICacheSource;
+
 /**
  * Manages the cache.
  * 
@@ -34,29 +37,49 @@ namespace Pzs\Bundle\WCFCoreBundle\Service\Cache;
  */
 class CacheService implements CacheServiceInterface
 {
-	// TODO implement methods
 	/**
-	 * 
+	 * The cache data.
+	 * @var array
 	 */
-	public function get($cacheName, array $parameters = array())
+	private $cacheData;
+	
+	/**
+	 * The cache source.
+	 * @var \Pzs\Bundle\WCFCoreBundle\Cache\Source\ICacheSource
+	 */
+	private $cacheSource;
+	
+	/**
+	 * Constructor.
+	 */
+	public function __construct(ICacheSource $cacheSource)
 	{
-		return '';
+		$this->cacheData = array();
+		$this->cacheSource = $cacheSource;
 	}
 	
 	/**
 	 * 
 	 */
-	public function set($cacheName, array $data, array $parameters = array())
+	public function get(ICacheBuilder $cacheBuilder, array $parameters = array())
 	{
-		
+		return $this->cacheSource->get($this->getCacheName($cacheBuilder, $parameters), $cacheBuilder->getMaxLifetime());
 	}
 	
 	/**
 	 * 
 	 */
-	public function reset($cacheName, array $parameters = array())
+	public function set(ICacheBuilder $cacheBuilder, array $data, array $parameters = array())
 	{
-		
+		$this->cacheSource->set($this->getCacheName($cacheBuilder, $parameters), $data, $cacheBuilder->getMaxLifetime());
+	}
+	
+	/**
+	 * 
+	 */
+	public function reset(ICacheBuilder $cacheBuilder, array $parameters = array())
+	{
+		$this->cacheSource->flush($this->getCacheName($cacheBuilder, $parameters), empty($parameters));
 	}
 	
 	/**
@@ -64,14 +87,60 @@ class CacheService implements CacheServiceInterface
 	 */
 	public function resetAll()
 	{
-		
+		$this->cacheSource->flushAll();
 	}
 	
 	/**
-	 * 
+	 * Returns cache index hash.
+	 *
+	 * @param	array	$parameters
+	 * @return	string
 	 */
-	public function isCacheExisting($cacheName)
+	public function getCacheIndex(array $parameters) {
+		return sha1(serialize($this->orderParameters($parameters)));
+	}
+	
+	/**
+	 * Returns the cache name.
+	 * 
+	 * @param	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder	$cacheBuilder	the cache builder
+	 * @param	array													$parameters		optional
+	 */
+	private function getCacheName(ICacheBuilder $cacheBuilder, array $parameters = array())
 	{
-		return false;
+		$className = explode('\\', get_class($cacheBuilder));
+		$vendor = array_shift($className);
+		$bundle = '';
+		$bundle1 = array_shift($className);
+		$bundle2 = array_shift($className);
+		if (strpos($bundle1, 'Bundle') !== false)
+		{
+			$bundle = $bundle1;
+		}
+		elseif (strpos($bundle2, 'Bundle') !== false)
+		{
+			$bundle = $bundle2;
+		}
+		$cacheName = str_replace('CacheBuilder', '', array_pop($className));
+		if (!empty($parameters)) {
+			$cacheName .= '-' . $this->getCacheIndex($parameters);
+		}
+		
+		return mb_strtolower($vendor) . '_' . mb_strtolower($bundle) . '_' . 
+			mb_strtoupper(mb_substr($cacheName, 0, 1)).mb_substr($cacheName, 1);
+	}
+	
+	/**
+	 * Unifies parameter order, numeric indizes will be discarded.
+	 *
+	 * @param	array	$parameters
+	 * @return	array
+	 */
+	protected function orderParameters($parameters) {
+		if (!empty($parameters)) {
+			array_multisort($parameters);
+		}
+		
+		return $parameters;
 	}
 }
