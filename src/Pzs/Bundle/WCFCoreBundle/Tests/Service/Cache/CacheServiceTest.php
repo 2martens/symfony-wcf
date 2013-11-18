@@ -48,6 +48,7 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function setUp()
 	{
+		// TODO: add mocked CacheSource
 		$this->cacheService = new CacheService();
 	}
 	
