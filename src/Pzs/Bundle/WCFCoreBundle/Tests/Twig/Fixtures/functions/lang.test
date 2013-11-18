@@ -1,0 +1,8 @@
+--TEST--
+"lang" function
+--TEMPLATE--
+{{ lang("wcf.global.hello") }}
+--DATA--
+return array()
+--EXPECT--
+hello world
