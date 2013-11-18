@@ -49,7 +49,13 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		// TODO: add mocked CacheSource
-		$this->cacheService = new CacheService();
+		$cacheSource = $this->getMockBuilder('\Pzs\Bundle\WCFCoreBundle\Cache\Source\TestCacheSource')
+			->disableOriginalConstructor()
+			->getMock();
+		$cacheSource->expects(parent::any())
+			->method('get')
+			->will(parent::returnCallback(array($this, 'getCacheCallback')));
+		$this->cacheService = new CacheService($cacheSource);
 	}
 	
 	/**
@@ -57,26 +63,32 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetAndSet()
 	{
-		$this->cacheService->set('test', array('fuss' => 'alpha'));
-		$result = $this->cacheService->get('test');
+		$cacheBuilder = $this->getMockBuilder('\Pzs\Bundle\WCFCoreBundle\Cache\Builder\TestCacheBuilder')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->cacheService->set($cacheBuilder, array('fuss' => 'alpha'));
+		$result = $this->cacheService->get($cacheBuilder);
 		parent::assertEquals(array('fuss' => 'alpha'), $result, 'For an existing cache, a wrong value has been returned.');
 		
-		$this->cacheService->set('test', array('name' => 'alfonso'), array('stupid' => true));
-		$result = $this->cacheService->get('test', array('stupid' => true));
+		$this->cacheService->set($cacheBuilder, array('name' => 'alfonso'), array('stupid' => true));
+		$result = $this->cacheService->get($cacheBuilder, array('stupid' => true));
 		parent::assertEquals(array('name' => 'alfonso'), $result, 'For an existing cache with the same parameters, a wrong value has been returned.');
 	}
-	
+
 	/**
-	 * Tests the isCacheExisting method.
+	 * Returns arrays depending on the input.
+	 * 
+	 * @return	string[]
 	 */
-	public function testIsCacheExisting()
+	public function getCacheCallback()
 	{
-		$this->cacheService->set('test', array('1' => '2'));
-		$result = $this->cacheService->isCacheExisting('test');
-		parent::assertTrue($result, 'An existing cache has been marked as non-existant.');
-		
-		$result = $this->cacheService->isCacheExisting('bloed');
-		parent::assertFalse($result, 'A non-existant cache has been marked as existing.');
+		$args = func_get_args();
+		$cacheName = $args[0];
+		if (strpos($cacheName, '-') !== false)
+		{
+			return array('name' => 'alfonso');
+		}
+		return array('fuss' => 'alpha');
 	}
 	
 }
