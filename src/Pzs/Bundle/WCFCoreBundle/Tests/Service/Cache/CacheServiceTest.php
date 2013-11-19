@@ -74,7 +74,10 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 		$this->cacheService->set($cacheBuilder);
 		$result = $this->cacheService->get($cacheBuilder);
 		parent::assertEquals(array('fuss' => 'alpha'), $result, 'For an existing cache, a wrong value has been returned.');
-		
+
+		$result = $this->cacheService->get($cacheBuilder, 'fuss');
+		parent::assertEquals('alpha', $result, 'For an existing array index, a wrong value has been returned.');
+
 		$this->cacheService->set($cacheBuilder, array('stupid' => true));
 		$result = $this->cacheService->get($cacheBuilder, '', array('stupid' => true));
 		parent::assertEquals(array('name' => 'alfonso'), $result, 'For an existing cache with the same parameters, a wrong value has been returned.');
@@ -96,7 +99,7 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 		{
 			return array('name' => 'alfonso');
 		}
-		return array('fuss' => 'alpha');
+		return null;//array('fuss' => 'alpha');
 	}
 
 	/**
