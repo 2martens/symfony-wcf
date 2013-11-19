@@ -60,6 +60,8 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 	
 	/**
 	 * Tests the get and set method.
+	 * 
+	 * @expectedException	\Pzs\Bundle\WCFCoreBundle\EXception\SystemException
 	 */
 	public function testGetAndSet()
 	{
@@ -76,6 +78,9 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 		$this->cacheService->set($cacheBuilder, array('stupid' => true));
 		$result = $this->cacheService->get($cacheBuilder, '', array('stupid' => true));
 		parent::assertEquals(array('name' => 'alfonso'), $result, 'For an existing cache with the same parameters, a wrong value has been returned.');
+		
+		// test that an invalid array index does lead to a SystemException
+		$this->cacheService->get($cacheBuilder, 'shucle');
 	}
 
 	/**

@@ -44,7 +44,8 @@ interface CacheServiceInterface
 	 * @param	string													$arrayIndex
 	 * @param	array													$parameters		optional
 	 * 
-	 * @return	mixed|NULL
+	 * @throws	\Pzs\Bundle\WCFCoreBundle\Exception\SystemException		if the cache resource does not have the specified array index
+	 * @return	mixed
 	 */
 	public function get(ICacheBuilder $cacheBuilder, $arrayIndex = '', array $parameters = array());
 	
