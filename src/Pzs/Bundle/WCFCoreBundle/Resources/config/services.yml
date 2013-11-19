@@ -7,7 +7,7 @@ parameters:
     language_repository.factory_argument: "PzsWCFCoreBundle:Language"
     language_category_repository.class: Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository
     language_category_repository.factory_argument: "PzsWCFCoreBundle:LanguageCategory"
-    
+
 services:
     pzs.twig.wcf_extension:
         class: "%pzs.twig.wcf_extension.class%"
@@ -25,6 +25,7 @@ services:
         arguments: 
             - "@language_repository"
             - "@language_category_repository"
+            - "@cache_service"
     language_repository:
         class: "%language_repository.class%"
         factory_service: doctrine.orm.entity_manager

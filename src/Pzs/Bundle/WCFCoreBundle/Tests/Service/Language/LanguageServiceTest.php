@@ -73,8 +73,48 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 		$languageCategoryRepository->expects(parent::any())
 			->method('findAll')
 			->will(parent::returnCallback(array($this, 'findAllLanguageCategoryCallback')));
+
+		$language = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\Language');
+		$language->expects(parent::any())
+			->method('getLanguageID')
+			->will(parent::returnValue(1));
+		$language->expects(parent::any())
+			->method('getLanguageCode')
+			->will(parent::returnValue('de'));
+		$language->expects(parent::any())
+			->method('getLanguageItems')
+			->will(parent::returnCallback(array($this, 'getLanguageItemsCallback')));;
+		$language2 = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\Language');
+		$language2->expects(parent::any())
+			->method('getLanguageID')
+			->will(parent::returnValue(2));
+		$language2->expects(parent::any())
+			->method('getLanguageItems')
+			->will(parent::returnCallback(array($this, 'getLanguageItemsCallback')));;
+		$language2->expects(parent::any())
+			->method('getLanguageCode')
+			->will(parent::returnValue('en'));
+
+		$cacheService = $this->getMockBuilder('\Pzs\Bundle\WCFCoreBundle\Service\Cache\CacheService')
+			->disableOriginalConstructor()
+			->getMock();
+		$cacheService->expects(parent::any())
+			->method('get')
+			->will(parent::returnValue(array(
+				'languages' => array(
+					1 => $language,
+					2 => $language2
+				),
+				'languagesByCode' => array(
+					'de' => $language,
+					'en' => $language2
+				),
+				'categories' => array()
+			)));
 		
-		$this->languageService = new LanguageService($languageRepository, $languageCategoryRepository);
+		$this->languageService = new LanguageService($languageRepository, 
+		                                             $languageCategoryRepository, 
+		                                             $cacheService);
 		$this->languageService->setDefaultLanguage(2);
 	}
 	

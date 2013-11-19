@@ -24,9 +24,11 @@
 
 namespace Pzs\Bundle\WCFCoreBundle\Service\Language;
 
+use Pzs\Bundle\WCFCoreBundle\Cache\Builder\LanguageCacheBuilder;
 use Pzs\Bundle\WCFCoreBundle\Entity\Language;
 use Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository;
 use Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository;
+use Pzs\Bundle\WCFCoreBundle\Service\Cache\CacheServiceInterface;
 
 use Symfony\Component\Templating\EngineInterface;
 
@@ -51,6 +53,18 @@ class LanguageService implements LanguageServiceInterface
 	 * @var \Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository
 	 */
 	private $languageCategoryRepository;
+
+	/**
+	 * The cache service.
+	 * @var	\Pzs\Bundle\WCFCoreBundle\Service\Cache\CacheServiceInterface
+	 */
+	private $cacheService;
+
+	/**
+	 * The cached language data.
+	 * @var	array
+	 */
+	private $cacheData;
 	
 	/**
 	 * The default language id.
@@ -68,15 +82,25 @@ class LanguageService implements LanguageServiceInterface
 	/**
 	 * Constructor.
 	 * 
-	 * @param \Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository $languageRepository
-	 * @param \Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository $languageCategoryRepository
+	 * @param	\Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository			$languageRepository
+	 * @param	\Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository	$languageCategoryRepository
+	 * @param	\Pzs\Bundle\WCFCoreBundle\Service\Cache\CacheServiceInterface	$cacheService
 	 */
-	public function __construct(LanguageRepository $languageRepository, LanguageCategoryRepository $languageCategoryRepository)
+	public function __construct(LanguageRepository $languageRepository, 
+	                            LanguageCategoryRepository $languageCategoryRepository, 
+	                            CacheServiceInterface $cacheService)
 	{
+		// initialization
 		$this->languageRepository = $languageRepository;
 		$this->languageCategoryRepository = $languageCategoryRepository;
+		$this->cacheService = $cacheService;
 		$this->defaultLanguageID = 0;
 		$this->currentLanguage = null;
+		$this->cacheData = array();
+
+		// retrieve cache data
+		$cacheBuilder = new LanguageCacheBuilder();
+		$this->cacheData = $this->cacheService->get($cacheBuilder);
 	}
 	
 	/**
@@ -84,7 +108,16 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getLanguage($languageID)
 	{
-		return $this->languageRepository->find($languageID);
+		$language = null;
+		if (isset($this->cacheData['languages'][$languageID]))
+		{
+			$language = $this->cacheData['languages'][$languageID];
+		}
+		else
+		{
+			$this->cacheData['languages'][$languageID] = $language = $this->languageRepository->find($languageID);
+		}
+		return $language;
 	}
 	
 	/**
@@ -122,7 +155,16 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getLanguageByCode($languageCode)
 	{
-		return $this->languageRepository->findBy(array('languageCode' => $languageCode));
+		$language = null;
+		if (isset($this->cacheData['languagesByCode'][$languageCode]))
+		{
+			$language = $this->cacheData['languagesByCode'][$languageCode];
+		}
+		else
+		{
+			$this->cacheData['languagesByCode'][$languageCode] = $language = $this->languageRepository->findBy(array('languageCode' => $languageCode));
+		}
+		return $language;
 	}
 	
 	/**
@@ -139,7 +181,16 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getCategory($categoryName)
 	{
-		return $this->languageCategoryRepository->findBy(array('languageCategory' => $categoryName));
+		$category = null;
+		if (isset($this->cacheData['categoriesByName'][$categoryName]))
+		{
+			$category = $this->cacheData['categoriesByName'][$categoryName];
+		}
+		else
+		{
+			$this->cacheData['categoriesByName'][$categoryName] = $category = $this->languageCategoryRepository->findBy(array('languageCategory' => $categoryName));
+		}
+		return $category;
 	}
 	
 	/**
@@ -147,7 +198,16 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getCategoryByID($categoryID)
 	{
-		return $this->languageCategoryRepository->find($categoryID);
+		$category = null;
+		if (isset($this->cacheData['categories'][$categoryID]))
+		{
+			$category = $this->cacheData['categories'][$categoryID];
+		}
+		else
+		{
+			$this->cacheData['categories'][$categoryID] = $category = $this->languageCategoryRepository->find($categoryID);
+		}
+		return $category;
 	}
 	
 	/**
@@ -155,7 +215,12 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getCategories()
 	{
-		return $this->languageCategoryRepository->findAll();
+		$categories = $this->cacheData['categories'];
+		if (empty($categories))
+		{
+			$this->cacheData['categories'] = $categories = $this->languageCategoryRepository->findAll();
+		}
+		return $categories;
 	}
 	
 	/**
@@ -171,7 +236,12 @@ class LanguageService implements LanguageServiceInterface
 	 */
 	public function getLanguages()
 	{
-		return $this->languageRepository->findAll();
+		$languages = $this->cacheData['languages'];
+		if (empty($languages))
+		{
+			$this->cacheData['languages'] = $languages = $this->languageRepository->findAll();
+		}
+		return $languages;
 	}
 	
 	/**
