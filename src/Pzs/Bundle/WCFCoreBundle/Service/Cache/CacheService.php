@@ -65,7 +65,6 @@ class CacheService implements CacheServiceInterface
 	public function get(ICacheBuilder $cacheBuilder, $arrayIndex = '', array $parameters = array())
 	{
 		$cacheName = $this->getCacheName($cacheBuilder, $parameters);
-		
 		if (!isset($this->cacheData[$cacheName])) {
 			// fetch cache or rebuild if missing
 			$this->cacheData[$cacheName] = $this->cacheSource->get($cacheName, $cacheBuilder->getMaxLifetime());
