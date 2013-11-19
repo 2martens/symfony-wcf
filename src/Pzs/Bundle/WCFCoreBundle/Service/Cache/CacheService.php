@@ -155,7 +155,7 @@ class CacheService implements CacheServiceInterface
 	}
 	
 	/**
-	 * Unifies parameter order, numeric indizes will be discarded.
+	 * Unifies parameter order, numeric indices will be discarded.
 	 *
 	 * @param	array	$parameters
 	 * @return	array
