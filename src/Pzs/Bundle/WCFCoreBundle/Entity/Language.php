@@ -80,7 +80,7 @@ class Language
 	private $hasContent;
 	
 	/**
-	 * @var	\Doctrine\Common\Collection\ArrayCollection
+	 * @var	\Doctrine\Common\Collections\ArrayCollection
 	 * 
 	 * @ORM\OneToMany(targetEntity="LanguageItem", mappedBy="language")
 	 */
