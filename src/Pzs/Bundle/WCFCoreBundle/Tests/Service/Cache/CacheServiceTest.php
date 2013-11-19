@@ -61,7 +61,7 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * Tests the get and set method.
 	 * 
-	 * @expectedException	\Pzs\Bundle\WCFCoreBundle\EXception\SystemException
+	 * @expectedException	\Pzs\Bundle\WCFCoreBundle\Exception\SystemException
 	 */
 	public function testGetAndSet()
 	{
