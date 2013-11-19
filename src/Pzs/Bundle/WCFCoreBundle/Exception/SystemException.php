@@ -17,45 +17,21 @@
  * along with the Symfony-WCF.  If not, see {@link http://www.gnu.org/licenses/}.
  * 
  * @author		Jim Martens
- * @copyright	2013 Jim Martens
+ * @copyright	2011-2012 Jim Martens
  * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  * @package		pzs/wcf-core-bundle
  */
 
-namespace Pzs\Bundle\WCFCoreBundle\Cache\Builder;
+namespace Pzs\Bundle\WCFCoreBundle\Exception;
 
 /**
- * Provides default implementation for cache builders.
+ * This exception is thrown if a system breaking issue is detected.
  * 
  * @author		Jim Martens
  * @copyright	2013 Jim Martens
  * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  * @package		pzs/wcf-core-bundle
  */
-abstract class AbstractCacheBuilder implements ICacheBuilder
+class SystemException extends \RuntimeException
 {
-	/**
-	 * maximum cache lifetime in seconds, '0' equals infinite
-	 * @var	integer
-	*/
-	protected $maxLifetime;
-
-	/**
-	 * Constructor.
-	 * 
-	 * @internal	Sets maxLifetime to 0. If the cache should have a restricted validity, overwrite the
-	 * constructor and change the value.
-	 */
-	public function __construct()
-	{
-		$this->maxLifetime = 0;
-	}
-	
-	/**
-	 * 
-	 */
-	public function getMaxLifetime()
-	{
-		return $this->maxLifetime;
-	}
 }

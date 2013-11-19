@@ -38,22 +38,23 @@ interface CacheServiceInterface
 {
 	/**
 	 * Returns the cached value for the given cache builder and parameters.
+	 * If such a value is not yet existing, the related cache will be built.
 	 * 
 	 * @param	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder	$cacheBuilder	the cache builder
+	 * @param	string													$arrayIndex
 	 * @param	array													$parameters		optional
 	 * 
-	 * @return	mixed
+	 * @return	mixed|NULL
 	 */
-	public function get(ICacheBuilder $cacheBuilder, array $parameters = array());
+	public function get(ICacheBuilder $cacheBuilder, $arrayIndex = '', array $parameters = array());
 	
 	/**
 	 * Caches given data under given cacheName and parameters.
 	 * 
 	 * @param	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder	$cacheBuilder	the cache builder
-	 * @param	array													$data
 	 * @param	array													$parameters		optional
 	 */
-	public function set(ICacheBuilder $cacheBuilder, array $data, array $parameters = array());
+	public function set(ICacheBuilder $cacheBuilder, array $parameters = array());
 	
 	/**
 	 * Sets the cache under cacheName with given parameters as outdated.

@@ -26,6 +26,7 @@ namespace Pzs\Bundle\WCFCoreBundle\Service\Cache;
 
 use Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder;
 use Pzs\Bundle\WCFCoreBundle\Cache\Source\ICacheSource;
+use Pzs\Bundle\WCFCoreBundle\Exception\SystemException;
 
 /**
  * Manages the cache.
@@ -61,17 +62,38 @@ class CacheService implements CacheServiceInterface
 	/**
 	 * 
 	 */
-	public function get(ICacheBuilder $cacheBuilder, array $parameters = array())
+	public function get(ICacheBuilder $cacheBuilder, $arrayIndex = '', array $parameters = array())
 	{
-		return $this->cacheSource->get($this->getCacheName($cacheBuilder, $parameters), $cacheBuilder->getMaxLifetime());
+		$cacheName = $this->getCacheName($cacheBuilder, $parameters);
+		
+		if (!isset($this->cacheData[$cacheName])) {
+			// fetch cache or rebuild if missing
+			$this->cacheData[$cacheName] = $this->cacheSource->get($cacheName, $cacheBuilder->getMaxLifetime());
+			if ($this->cacheData[$cacheName] === null) {
+				// update cache
+				$this->set($cacheBuilder, $parameters);
+			}
+		}
+
+		if (!empty($arrayIndex)) {
+			if (!isset($this->cacheData[$cacheName][$arrayIndex])) {
+				throw new SystemException("array index '".$arrayIndex."' does not exist in cache resource");
+			}
+			
+			return $this->cacheData[$cacheName][$arrayIndex];
+		}
+		
+		return $this->cacheData[$cacheName];
 	}
 	
 	/**
 	 * 
 	 */
-	public function set(ICacheBuilder $cacheBuilder, array $data, array $parameters = array())
+	public function set(ICacheBuilder $cacheBuilder, array $parameters = array())
 	{
-		$this->cacheSource->set($this->getCacheName($cacheBuilder, $parameters), $data, $cacheBuilder->getMaxLifetime());
+		$cacheName = $this->getCacheName($cacheBuilder, $parameters);
+		$this->cacheData[$cacheName] = $cacheBuilder->getData($parameters);
+		$this->cacheSource->set($cacheName, $this->cacheData[$cacheName], $cacheBuilder->getMaxLifetime());
 	}
 	
 	/**

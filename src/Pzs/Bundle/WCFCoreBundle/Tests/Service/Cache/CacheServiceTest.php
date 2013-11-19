@@ -66,12 +66,15 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 		$cacheBuilder = $this->getMockBuilder('\Pzs\Bundle\WCFCoreBundle\Cache\Builder\TestCacheBuilder')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->cacheService->set($cacheBuilder, array('fuss' => 'alpha'));
+		$cacheBuilder->expects(parent::any())
+			->method('getData')
+			->will(parent::returnCallback(array($this, 'getDataCallback')));
+		$this->cacheService->set($cacheBuilder);
 		$result = $this->cacheService->get($cacheBuilder);
 		parent::assertEquals(array('fuss' => 'alpha'), $result, 'For an existing cache, a wrong value has been returned.');
 		
-		$this->cacheService->set($cacheBuilder, array('name' => 'alfonso'), array('stupid' => true));
-		$result = $this->cacheService->get($cacheBuilder, array('stupid' => true));
+		$this->cacheService->set($cacheBuilder, array('stupid' => true));
+		$result = $this->cacheService->get($cacheBuilder, '', array('stupid' => true));
 		parent::assertEquals(array('name' => 'alfonso'), $result, 'For an existing cache with the same parameters, a wrong value has been returned.');
 	}
 
@@ -89,6 +92,22 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 			return array('name' => 'alfonso');
 		}
 		return array('fuss' => 'alpha');
+	}
+
+	/**
+	 * Returns arrays depending on the input.
+	 * 
+	 * @return	string[]
+	 */
+	public function getDataCallback()
+	{
+		$args = func_get_args();
+		$parameters = $args[0];
+		if (empty($parameters))
+		{
+			return array('fuss' => 'alpha');
+		}
+		return array('name' => 'alfonso');
 	}
 	
 }
