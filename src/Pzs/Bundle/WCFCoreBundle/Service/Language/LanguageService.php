@@ -99,7 +99,7 @@ class LanguageService implements LanguageServiceInterface
 		$this->cacheData = array();
 
 		// retrieve cache data
-		$cacheBuilder = new LanguageCacheBuilder();
+		$cacheBuilder = new LanguageCacheBuilder($this->languageRepository, $this->languageCategoryRepository);
 		$this->cacheData = $this->cacheService->get($cacheBuilder);
 	}
 	

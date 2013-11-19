@@ -24,6 +24,9 @@
 
 namespace Pzs\Bundle\WCFCoreBundle\Cache\Builder;
 
+use Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository;
+use Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository;
+
 /**
  * Implementation for languages.
  * 
@@ -35,10 +38,60 @@ namespace Pzs\Bundle\WCFCoreBundle\Cache\Builder;
 class LanguageCacheBuilder extends AbstractCacheBuilder
 {
 	/**
+	 * The language repository.
+	 * @var	\Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository
+	 */	 
+	private $languageRepository;
+
+	/**
+	 * The language category repository.
+	 * @var	\Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository
+	 */
+	private $languageCategoryRepository;
+
+	/**
+	 * Constructor.
 	 * 
+	 * @param	\Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository
+	 * @param	\Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository
+	 */
+	public function __construct(LanguageRepository $languageRepository, 
+								LanguageCategoryRepository $languageCategoryRepository)
+	{
+		parent::__construct();
+		$this->languageRepository = $languageRepository;
+		$this->languageCategoryRepository = $languageCategoryRepository;
+	}
+	/**
+	 * Returns the data that ought to be cached.
+	 * 
+	 * @param	array	$parameters
+	 * 
+	 * @return	(\Pzs\Bundle\WCFCoreBundle\Entity\Language|\Pzs\Bundle\WCFCoreBundle\Entity\LanguageCategory)[][] array('languages' => array(<id> => <language>), 'languagesByCode' => array(<code> => <language>), 'categories' => array(<id> => <languageCategory>), 'categoriesByName' => array(<name> => <languageCategory>))
 	 */
 	public function getData(array $parameters = array())
 	{
-		
+		$data = array(
+			'languages' => array(),
+			'languagesByCode' => array(),
+			'categories' => array(),
+			'categoriesByName' => array()
+		);
+
+		$languages = $this->languageRepository->findAll();
+
+		foreach ($languages as $language)
+		{
+			$data['languages'][$language->getLanguageID()] = $language;
+			$data['languagesByCode'][$language->getLanguageCode()] = $language;
+		}
+
+		$categories = $this->languageCategoryRepository->findAll();
+		foreach ($categories as $category)
+		{
+			$data['categories'][$category->getLanguageCategoryID()] = $category;
+			$data['categoriesByName'][$category->getLanguageCategory()] = $category;
+		}
+		return $data;
 	}
 }
