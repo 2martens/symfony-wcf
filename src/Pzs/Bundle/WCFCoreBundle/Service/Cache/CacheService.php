@@ -127,6 +127,8 @@ class CacheService implements CacheServiceInterface
 	 * 
 	 * @param	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder	$cacheBuilder	the cache builder
 	 * @param	array													$parameters		optional
+	 *
+	 * @return  string
 	 */
 	private function getCacheName(ICacheBuilder $cacheBuilder, array $parameters = array())
 	{
