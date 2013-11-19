@@ -93,7 +93,7 @@ class LanguageItem
     private $packageID;
     
     /**
-     * @var Pzs\Bundle\WCFCoreBundle\Entity\Language
+     * @var \Pzs\Bundle\WCFCoreBundle\Entity\Language
      * 
      * @ORM\ManyToOne(targetEntity="Language", inversedBy="languageItems")
      * @ORM\JoinColumn(name="languageID", referencedColumnName="languageID")
@@ -101,7 +101,7 @@ class LanguageItem
     private $language;
 	
     /**
-     * @var Pzs\Bundle\WCFCoreBundle\Entity\LanguageCategory
+     * @var \Pzs\Bundle\WCFCoreBundle\Entity\LanguageCategory
      * 
      * @ORM\ManyToOne(targetEntity="LanguageCategory", inversedBy="languageItems")
      * @ORM\JoinColumn(name="languageCategoryID", referencedColumnName="languageCategoryID")

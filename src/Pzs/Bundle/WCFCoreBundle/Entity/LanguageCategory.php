@@ -52,7 +52,7 @@ class LanguageCategory
     private $languageCategory;
 	
     /**
-	 * @var	\Doctrine\Common\Collection\ArrayCollection
+	 * @var	\Doctrine\Common\Collections\ArrayCollection
 	 * 
 	 * @ORM\OneToMany(targetEntity="LanguageItem", mappedBy="languageCategory")
 	 */
