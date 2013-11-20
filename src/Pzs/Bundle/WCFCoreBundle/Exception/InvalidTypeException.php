@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Symfony-WCF.  If not, see {@link http://www.gnu.org/licenses/}.
  * 
- * @author		Jim Martens
- * @copyright	2011-2012 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2011-2012 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 
 namespace Pzs\Bundle\WCFCoreBundle\Exception;
@@ -27,11 +26,10 @@ namespace Pzs\Bundle\WCFCoreBundle\Exception;
 /**
  * This exception is thrown if an invalid type is encountered.
  * 
- * @author		Jim Martens
- * @copyright	2013 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2013 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 class InvalidTypeException extends \RuntimeException
-{	
+{
 }

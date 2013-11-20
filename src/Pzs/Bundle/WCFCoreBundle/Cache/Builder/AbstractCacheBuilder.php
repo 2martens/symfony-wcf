@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Symfony-WCF.  If not, see {@link http://www.gnu.org/licenses/}.
  * 
- * @author		Jim Martens
- * @copyright	2013 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2013 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 
 namespace Pzs\Bundle\WCFCoreBundle\Cache\Builder;
@@ -27,35 +26,34 @@ namespace Pzs\Bundle\WCFCoreBundle\Cache\Builder;
 /**
  * Provides default implementation for cache builders.
  * 
- * @author		Jim Martens
- * @copyright	2013 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2013 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 abstract class AbstractCacheBuilder implements CacheBuilderInterface
 {
-	/**
-	 * maximum cache lifetime in seconds, '0' equals infinite
-	 * @var	integer
-	 */
-	protected $maxLifetime;
+    /**
+     * maximum cache lifetime in seconds, '0' equals infinite
+     * @var    integer
+     */
+    protected $maxLifetime;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @internal	Sets maxLifetime to 0. If the cache should have a restricted validity, overwrite the
-	 * constructor and change the value.
-	 */
-	public function __construct()
-	{
-		$this->maxLifetime = 0;
-	}
+    /**
+     * Constructor.
+     *
+     * @internal    Sets maxLifetime to 0. If the cache should have a restricted validity, overwrite the
+     * constructor and change the value.
+     */
+    public function __construct()
+    {
+        $this->maxLifetime = 0;
+    }
 
-	/**
-	 * 
-	 */
-	public function getMaxLifetime()
-	{
-		return $this->maxLifetime;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function getMaxLifetime()
+    {
+        return $this->maxLifetime;
+    }
 }

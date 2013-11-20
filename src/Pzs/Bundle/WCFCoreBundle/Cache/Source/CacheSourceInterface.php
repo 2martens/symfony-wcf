@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Symfony-WCF.  If not, see {@link http://www.gnu.org/licenses/}.
  * 
- * @author		Jim Martens
- * @copyright	2013 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2013 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 
 namespace Pzs\Bundle\WCFCoreBundle\Cache\Source;
@@ -27,42 +26,41 @@ namespace Pzs\Bundle\WCFCoreBundle\Cache\Source;
 /**
  * Defines functionality of a cache source.
  * 
- * @author		Jim Martens
- * @copyright	2013 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2013 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 interface CacheSourceInterface
 {
-	/**
-	 * Flushes a specific cache, optionally removing caches which share the same name.
-	 *
-	 * @param	string		$cacheName
-	 * @param	boolean		$useWildcard	can be used if you have a common cache name with different parameters each
-	 */
-	public function flush($cacheName, $useWildcard);
-	
-	/**
-	 * Clears the cache completely.
-	 */
-	public function flushAll();
-	
-	/**
-	 * Returns a cached variable.
-	 *
-	 * @param	string	$cacheName
-	 * @param	integer	$maxLifetime
-	 * 
-	 * @return	mixed
-	 */
-	public function get($cacheName, $maxLifetime);
-	
-	/**
-	 * Stores a variable in the cache.
-	 *
-	 * @param	string	$cacheName
-	 * @param	mixed	$value
-	 * @param	integer	$maxLifetime
-	 */
-	public function set($cacheName, $value, $maxLifetime);
+    /**
+     * Flushes a specific cache, optionally removing caches which share the same name.
+     *
+     * @param string  $cacheName
+     * @param boolean $useWildcard can be used if you have a common cache name with different parameters each
+     */
+    public function flush($cacheName, $useWildcard);
+
+    /**
+     * Clears the cache completely.
+     */
+    public function flushAll();
+
+    /**
+     * Returns a cached variable.
+     *
+     * @param string  $cacheName
+     * @param integer $maxLifetime
+     *
+     * @return    mixed
+     */
+    public function get($cacheName, $maxLifetime);
+
+    /**
+     * Stores a variable in the cache.
+     *
+     * @param string  $cacheName
+     * @param mixed   $value
+     * @param integer $maxLifetime
+     */
+    public function set($cacheName, $value, $maxLifetime);
 }

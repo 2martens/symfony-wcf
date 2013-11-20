@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Symfony-WCF.  If not, see {@link http://www.gnu.org/licenses/}.
  * 
- * @author		Jim Martens
- * @copyright	2013 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2013 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 
 namespace Pzs\Bundle\WCFCoreBundle\Entity;
@@ -35,102 +34,102 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class LanguageCategory
 {
-	/**
-	 * @var integer
-	 *
-	 * @ORM\Column(name="languageCategoryID", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $languageCategoryID;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="languageCategoryID", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $languageCategoryID;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="languageCategory", type="string", length=255)
-	 */
-	private $languageCategory;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="languageCategory", type="string", length=255)
+     */
+    private $languageCategory;
 
-	/**
-	 * @var	\Doctrine\Common\Collections\ArrayCollection
-	 * 
-	 * @ORM\OneToMany(targetEntity="LanguageItem", mappedBy="languageCategory")
-	 */
-	private $languageItems;
+    /**
+     * @var    \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="LanguageItem", mappedBy="languageCategory")
+     */
+    private $languageItems;
 
-	/**
-	 * Initializes the Language entity.
-	 */
-	public function __construct()
-	{
-		$this->languageItems = new ArrayCollection();
-	}
+    /**
+     * Initializes the Language entity.
+     */
+    public function __construct()
+    {
+        $this->languageItems = new ArrayCollection();
+    }
 
-	/**
-	 * Get language category id.
-	 *
-	 * @return	integer
-	 */
-	public function getLanguageCategoryID()
-	{
-		return $this->languageCategoryID;
-	}
+    /**
+     * Get language category id.
+     *
+     * @return    integer
+     */
+    public function getLanguageCategoryID()
+    {
+        return $this->languageCategoryID;
+    }
 
-	/**
-	 * Set languageCategory.
-	 *
-	 * @param	string	$languageCategory
-	 *
-	 * @return	LanguageCategory
-	 */
-	public function setLanguageCategory($languageCategory)
-	{
-		$this->languageCategory = $languageCategory;
+    /**
+     * Set languageCategory.
+     *
+     * @param string $languageCategory
+     *
+     * @return    LanguageCategory
+     */
+    public function setLanguageCategory($languageCategory)
+    {
+        $this->languageCategory = $languageCategory;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get languageCategory.
-	 *
-	 * @return	string
-	 */
-	public function getLanguageCategory()
-	{
-		return $this->languageCategory;
-	}
+    /**
+     * Get languageCategory.
+     *
+     * @return    string
+     */
+    public function getLanguageCategory()
+    {
+        return $this->languageCategory;
+    }
 
-	/**
-	 * Add languageItem.
-	 *
-	 * @param	LanguageItem $languageItem
-	 *
-	 * @return	LanguageCategory
-	 */
-	public function addLanguageItem(LanguageItem $languageItem)
-	{
-		$this->languageItems->set($languageItem->getLanguageItem(), $languageItem);
+    /**
+     * Add languageItem.
+     *
+     * @param LanguageItem $languageItem
+     *
+     * @return    LanguageCategory
+     */
+    public function addLanguageItem(LanguageItem $languageItem)
+    {
+        $this->languageItems->set($languageItem->getLanguageItem(), $languageItem);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Remove languageItem.
-	 *
-	 * @param	LanguageItem $languageItem
-	 */
-	public function removeLanguageItem(LanguageItem $languageItem)
-	{
-		$this->languageItems->removeElement($languageItem);
-	}
+    /**
+     * Remove languageItem.
+     *
+     * @param LanguageItem $languageItem
+     */
+    public function removeLanguageItem(LanguageItem $languageItem)
+    {
+        $this->languageItems->removeElement($languageItem);
+    }
 
-	/**
-	 * Get languageItems.
-	 *
-	 * @return	\Doctrine\Common\Collections\Collection
-	 */
-	public function getLanguageItems()
-	{
-		return $this->languageItems;
-	}
+    /**
+     * Get languageItems.
+     *
+     * @return    \Doctrine\Common\Collections\Collection
+     */
+    public function getLanguageItems()
+    {
+        return $this->languageItems;
+    }
 }

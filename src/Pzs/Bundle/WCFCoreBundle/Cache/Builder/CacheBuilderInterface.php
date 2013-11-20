@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Symfony-WCF.  If not, see {@link http://www.gnu.org/licenses/}.
  * 
- * @author		Jim Martens
- * @copyright	2013 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2013 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 
 namespace Pzs\Bundle\WCFCoreBundle\Cache\Builder;
@@ -27,25 +26,25 @@ namespace Pzs\Bundle\WCFCoreBundle\Cache\Builder;
 /**
  * Defines behaviour of cache builders.
  * 
- * @author		Jim Martens
- * @copyright	2013 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2013 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 interface CacheBuilderInterface
 {
-	/**
-	 * Returns the data that ought to be cached.
-	 *
-	 * @param	array		$parameters
-	 * @return	array
-	 */
-	public function getData(array $parameters = array());
-	
-	/**
-	 * Returns maximum lifetime for cache resource.
-	 *
-	 * @return	integer
-	 */
-	public function getMaxLifetime();
+    /**
+     * Returns the data that ought to be cached.
+     *
+     * @param array     $parameters
+     *
+     * @return    array
+     */
+    public function getData(array $parameters = array());
+
+    /**
+     * Returns maximum lifetime for cache resource.
+     *
+     * @return    integer
+     */
+    public function getMaxLifetime();
 }

@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Symfony-WCF.  If not, see {@link http://www.gnu.org/licenses/}.
  * 
- * @author		Jim Martens
- * @copyright	2013 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2013 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 
 namespace Pzs\Bundle\WCFCoreBundle\Tests\Cache\Builder;
@@ -27,18 +26,17 @@ namespace Pzs\Bundle\WCFCoreBundle\Tests\Cache\Builder;
 /**
  * Tests the TestCacheBuilder.
  * 
- * @author		Jim Martens
- * @copyright	2013 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2013 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 class TestCacheBuilderTest extends AbstractCacheBuilderTest
 {
-	/**
-	 *
-	 */
-	protected function constructCacheBuilder($newClass)
-	{
-		return new $newClass();
-	}
+    /**
+     * {@inheritdoc}
+     */
+    protected function constructCacheBuilder($newClass)
+    {
+        return new $newClass();
+    }
 }

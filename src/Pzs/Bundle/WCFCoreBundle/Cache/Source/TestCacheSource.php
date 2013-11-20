@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Symfony-WCF.  If not, see {@link http://www.gnu.org/licenses/}.
  * 
- * @author		Jim Martens
- * @copyright	2013 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2013 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 
 namespace Pzs\Bundle\WCFCoreBundle\Cache\Source;
@@ -27,42 +26,41 @@ namespace Pzs\Bundle\WCFCoreBundle\Cache\Source;
 /**
  * Test implementation for CacheSource.
  * 
- * @author		Jim Martens
- * @copyright	2013 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2013 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 class TestCacheSource implements CacheSourceInterface
 {
-	/**
-	 * 
-	 */
-	public function flush($cacheName, $useWildcard)
-	{
+    /**
+     * {@inheritdoc}
+     */
+    public function flush($cacheName, $useWildcard)
+    {
 
-	}
-	
-	/**
-	 * 
-	 */
-	public function flushAll()
-	{
+    }
 
-	}
-	
-	/**
-	 * 
-	 */
-	public function get($cacheName, $maxLifetime)
-	{
-		return null;
-	}
-	
-	/**
-	 * 
-	 */
-	public function set($cacheName, $value, $maxLifetime)
-	{
+    /**
+     * {@inheritdoc}
+     */
+    public function flushAll()
+    {
 
-	}
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function get($cacheName, $maxLifetime)
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function set($cacheName, $value, $maxLifetime)
+    {
+
+    }
 }

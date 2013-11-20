@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the Symfony-WCF.  If not, see {@link http://www.gnu.org/licenses/}.
  *
- * @author		Jim Martens
- * @copyright	2013 Jim Martens
- * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
- * @package		pzs/wcf-core-bundle
+ * @author    Jim Martens <jim1@live.de>
+ * @copyright 2013 Jim Martens
+ * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 
 namespace Pzs\Bundle\WCFCoreBundle\Entity;
@@ -35,220 +34,226 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Language
 {
-	/**
-	 * @var integer
-	 *
-	 * @ORM\Column(name="languageID", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $languageID;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="languageID", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $languageID;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="languageCode", type="string", length=20)
-	 */
-	private $languageCode;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="languageCode", type="string", length=20)
+     */
+    private $languageCode;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="languageName", type="string", length=255)
-	 */
-	private $languageName;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="languageName", type="string", length=255)
+     */
+    private $languageName;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="countryCode", type="string", length=10)
-	 */
-	private $countryCode;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="countryCode", type="string", length=10)
+     */
+    private $countryCode;
 
-	/**
-	 * @var boolean
-	 *
-	 * @ORM\Column(name="isDefault", type="boolean")
-	 */
-	private $isDefault;
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="isDefault", type="boolean")
+     */
+    private $isDefault;
 
-	/**
-	 * @var boolean
-	 *
-	 * @ORM\Column(name="hasContent", type="boolean")
-	 */
-	private $hasContent;
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="hasContent", type="boolean")
+     */
+    private $hasContent;
 
-	/**
-	 * @var	\Doctrine\Common\Collections\ArrayCollection
-	 * 
-	 * @ORM\OneToMany(targetEntity="LanguageItem", mappedBy="language")
-	 */
-	private $languageItems;
+    /**
+     * @var    \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="LanguageItem", mappedBy="language")
+     */
+    private $languageItems;
 
-	/**
-	 * Initializes the Language entity.
-	 */
-	public function __construct()
-	{
-		$this->languageItems = new ArrayCollection();
-	}
+    /**
+     * Initializes the Language entity.
+     */
+    public function __construct()
+    {
+        $this->languageItems = new ArrayCollection();
+    }
 
-	/**
-	 * Get language id.
-	 *
-	 * @return	integer
-	 */
-	public function getLanguageID()
-	{
-		return $this->languageID;
-	}
+    /**
+     * Get language id.
+     *
+     * @return    integer
+     */
+    public function getLanguageID()
+    {
+        return $this->languageID;
+    }
 
-	/**
-	 * Set languageCode.
-	 *
-	 * @param	string	$languageCode
-	 * @return	Language
-	 */
-	public function setLanguageCode($languageCode)
-	{
-		$this->languageCode = $languageCode;
+    /**
+     * Set languageCode.
+     *
+     * @param string $languageCode
+     *
+     * @return    Language
+     */
+    public function setLanguageCode($languageCode)
+    {
+        $this->languageCode = $languageCode;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get languageCode.
-	 *
-	 * @return	string
-	 */
-	public function getLanguageCode()
-	{
-		return $this->languageCode;
-	}
+    /**
+     * Get languageCode.
+     *
+     * @return    string
+     */
+    public function getLanguageCode()
+    {
+        return $this->languageCode;
+    }
 
-	/**
-	 * Set languageName.
-	 *
-	 * @param    string    $languageName
-	 * @return   Language
-	 */
-	public function setLanguageName($languageName)
-	{
-		$this->languageName = $languageName;
+    /**
+     * Set languageName.
+     *
+     * @param string $languageName
+     *
+     * @return   Language
+     */
+    public function setLanguageName($languageName)
+    {
+        $this->languageName = $languageName;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get languageName.
-	 *
-	 * @return	string
-	 */
-	public function getLanguageName()
-	{
-		return $this->languageName;
-	}
+    /**
+     * Get languageName.
+     *
+     * @return    string
+     */
+    public function getLanguageName()
+    {
+        return $this->languageName;
+    }
 
-	/**
-	 * Set countryCode.
-	 *
-	 * @param	string	$countryCode
-	 * @return	Language
-	 */
-	public function setCountryCode($countryCode)
-	{
-		$this->countryCode = $countryCode;
+    /**
+     * Set countryCode.
+     *
+     * @param string $countryCode
+     *
+     * @return    Language
+     */
+    public function setCountryCode($countryCode)
+    {
+        $this->countryCode = $countryCode;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get countryCode.
-	 *
-	 * @return	string
-	 */
-	public function getCountryCode()
-	{
-		return $this->countryCode;
-	}
+    /**
+     * Get countryCode.
+     *
+     * @return    string
+     */
+    public function getCountryCode()
+    {
+        return $this->countryCode;
+    }
 
-	/**
-	 * Set isDefault.
-	 *
-	 * @param	boolean	$isDefault
-	 * @return	Language
-	 */
-	public function setIsDefault($isDefault)
-	{
-		$this->isDefault = $isDefault;
+    /**
+     * Set isDefault.
+     *
+     * @param boolean $isDefault
+     *
+     * @return    Language
+     */
+    public function setIsDefault($isDefault)
+    {
+        $this->isDefault = $isDefault;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get isDefault.
-	 *
-	 * @return	boolean
-	 */
-	public function getIsDefault()
-	{
-		return $this->isDefault;
-	}
+    /**
+     * Get isDefault.
+     *
+     * @return    boolean
+     */
+    public function getIsDefault()
+    {
+        return $this->isDefault;
+    }
 
-	/**
-	 * Set hasContent.
-	 *
-	 * @param	boolean	$hasContent
-	 * @return	Language
-	 */
-	public function setHasContent($hasContent)
-	{
-		$this->hasContent = $hasContent;
+    /**
+     * Set hasContent.
+     *
+     * @param boolean $hasContent
+     *
+     * @return    Language
+     */
+    public function setHasContent($hasContent)
+    {
+        $this->hasContent = $hasContent;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get hasContent.
-	 *
-	 * @return	boolean
-	 */
-	public function getHasContent()
-	{
-		return $this->hasContent;
-	}
+    /**
+     * Get hasContent.
+     *
+     * @return    boolean
+     */
+    public function getHasContent()
+    {
+        return $this->hasContent;
+    }
 
-	/**
-	 * Add languageItem.
-	 *
-	 * @param	LanguageItem $languageItem
-	 * @return	Language
-	 */
-	public function addLanguageItem(LanguageItem $languageItem)
-	{
-		$this->languageItems->set($languageItem->getLanguageItem(), $languageItem);
+    /**
+     * Add languageItem.
+     *
+     * @param LanguageItem $languageItem
+     *
+     * @return    Language
+     */
+    public function addLanguageItem(LanguageItem $languageItem)
+    {
+        $this->languageItems->set($languageItem->getLanguageItem(), $languageItem);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Remove languageItem.
-	 *
-	 * @param LanguageItem $languageItem
-	 */
-	public function removeLanguageItem(LanguageItem $languageItem)
-	{
-		$this->languageItems->removeElement($languageItem);
-	}
+    /**
+     * Remove languageItem.
+     *
+     * @param LanguageItem $languageItem
+     */
+    public function removeLanguageItem(LanguageItem $languageItem)
+    {
+        $this->languageItems->removeElement($languageItem);
+    }
 
-	/**
-	 * Get languageItems.
-	 *
-	 * @return	\Doctrine\Common\Collections\Collection
-	 */
-	public function getLanguageItems()
-	{
-		return $this->languageItems;
-	}
+    /**
+     * Get languageItems.
+     *
+     * @return    \Doctrine\Common\Collections\Collection
+     */
+    public function getLanguageItems()
+    {
+        return $this->languageItems;
+    }
 }
