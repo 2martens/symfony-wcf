@@ -24,7 +24,7 @@
 
 namespace Pzs\Bundle\WCFCoreBundle\Service\Cache;
 
-use Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder;
+use Pzs\Bundle\WCFCoreBundle\Cache\Builder\CacheBuilderInterface;
 
 /**
  * Provides functionality for caching.
@@ -40,30 +40,30 @@ interface CacheServiceInterface
 	 * Returns the cached value for the given cache builder and parameters.
 	 * If such a value is not yet existing, the related cache will be built.
 	 * 
-	 * @param	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder	$cacheBuilder	the cache builder
-	 * @param	string													$arrayIndex
-	 * @param	array													$parameters		optional
+	 * @param	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\CacheBuilderInterface	$cacheBuilder	the cache builder
+	 * @param	string												    	    $arrayIndex
+	 * @param	array												        	$parameters		optional
 	 * 
-	 * @throws	\Pzs\Bundle\WCFCoreBundle\Exception\SystemException		if the cache resource does not have the specified array index
+	 * @throws	\Pzs\Bundle\WCFCoreBundle\Exception\SystemException		        if the cache resource does not have the specified array index
 	 * @return	mixed
 	 */
-	public function get(ICacheBuilder $cacheBuilder, $arrayIndex = '', array $parameters = array());
-	
+	public function get(CacheBuilderInterface $cacheBuilder, $arrayIndex = '', array $parameters = array());
+
 	/**
 	 * Caches given data under given cacheName and parameters.
-	 * 
-	 * @param	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder	$cacheBuilder	the cache builder
-	 * @param	array													$parameters		optional
+	 *
+	 * @param	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\CacheBuilderInterface	$cacheBuilder	the cache builder
+	 * @param	array												        	$parameters		optional
 	 */
-	public function set(ICacheBuilder $cacheBuilder, array $parameters = array());
+	public function set(CacheBuilderInterface $cacheBuilder, array $parameters = array());
 	
 	/**
 	 * Sets the cache under cacheName with given parameters as outdated.
 	 * 
-	 * @param	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder	$cacheBuilder	the cache builder
-	 * @param	array													$parameters		optional
+	 * @param	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\CacheBuilderInterface	$cacheBuilder	the cache builder
+	 * @param	array													        $parameters		optional
 	 */
-	public function reset(ICacheBuilder $cacheBuilder, array $parameters = array());
+	public function reset(CacheBuilderInterface  $cacheBuilder, array $parameters = array());
 	
 	/**
 	 * Resets all caches.

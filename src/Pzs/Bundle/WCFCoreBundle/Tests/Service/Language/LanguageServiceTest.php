@@ -42,7 +42,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 	 * @var \Pzs\Bundle\WCFCoreBundle\Service\Language\LanguageServiceInterface
 	 */
 	private $languageService;
-	
+
 	/**
 	 * 
 	 */
@@ -60,7 +60,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 		$languageRepository->expects(parent::any())
 			->method('findAll')
 			->will(parent::returnCallback(array($this, 'findAllLanguageCallback')));
-		
+
 		$languageCategoryRepository = $this->getMockBuilder('\Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository')
 			->disableOriginalConstructor()
 			->getMock();
@@ -111,13 +111,13 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 				),
 				'categories' => array()
 			)));
-		
+
 		$this->languageService = new LanguageService($languageRepository, 
-		                                             $languageCategoryRepository, 
-		                                             $cacheService);
+													 $languageCategoryRepository,
+													 $cacheService);
 		$this->languageService->setDefaultLanguage(2);
 	}
-	
+
 	/**
 	 * Tests the getLanguage method.
 	 */
@@ -125,11 +125,11 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 	{
 		$actualLanguage1 = $this->languageService->getLanguage(1);
 		parent::assertEquals(1, $actualLanguage1->getLanguageID(), 'For an existing ID, a wrong language has been returned.');
-		
+
 		$actualLanguage2 = $this->languageService->getLanguage(3);
 		parent::assertNull($actualLanguage2, 'For an invalid language id, a value not equal to null has been returned.');
 	}
-	
+
 	/**
 	 * Tests the getLanguageByCode method.
 	 */
@@ -137,46 +137,39 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 	{
 		$actualLanguage1 = $this->languageService->getLanguageByCode('de');
 		parent::assertEquals('de', $actualLanguage1->getLanguageCode(), 'For an existing language code, a wrong language has been returned.');
-		
+
 		$actualLanguage2 = $this->languageService->getLanguageByCode('js');
 		parent::assertNull($actualLanguage2, 'For an invalid language code, a value not equal to null has been returned.');
 	}
-	
+
 	/**
 	 * Tests the getLanguages method.
 	 */
 	public function testGetLanguages()
 	{
 		$languages = $this->languageService->getLanguages();
-		
+
 		parent::assertCount(2, $languages, 'The result array contains more or less entries than languages exist.');
 		parent::assertContainsOnlyInstancesOf('\Pzs\Bundle\WCFCoreBundle\Entity\Language', $languages, 'The result array does contain elements that are not languages.');
-	
-		$containsAllLanguages = false;
+
 		$contains1 = false;
 		$contains2 = false;
 		$containsOnlyExistingLanguages = true;
-		foreach ($languages as $language)
-		{
+		foreach ($languages as $language) {
 			$id = $language->getLanguageID();
-			if ($id == 1)
-			{
+			if ($id == 1) {
 				$contains1 = true;
-			}
-			elseif ($id == 2)
-			{
+			} elseif ($id == 2) {
 				$contains2 = true;
-			}
-			else
-			{
+			} else {
 				$containsOnlyExistingLanguages = false;
 			}
 		}
 		$containsAllLanguages = $contains1 && $contains2 && $containsOnlyExistingLanguages;
-	
+
 		parent::assertTrue($containsAllLanguages, 'The result array contains either not all or more languages than actually exist.');
 	}
-	
+
 	/**
 	 * Tests the setDefaultLanguageID method.
 	 */
@@ -185,7 +178,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 		$this->languageService->setDefaultLanguage(1);
 		parent::assertEquals(1, $this->languageService->getDefaultLanguageID(), 'The default language id hasn\'t been returned.');
 	}
-	
+
 	/**
 	 * Tests the getDefaultLanguageID method.
 	 */
@@ -193,7 +186,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::assertEquals(2, $this->languageService->getDefaultLanguageID(), 'The default language id hasn\'t been returned.');
 	}
-	
+
 	/**
 	 * Tests the getCategory method.
 	 */
@@ -201,11 +194,11 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 	{
 		$actualLanguageCategory1 = $this->languageService->getCategory('wcf.global');
 		parent::assertEquals('wcf.global', $actualLanguageCategory1->getLanguageCategory(), 'For an existing category name, a wrong language category has been returned.');
-	
+
 		$actualLanguageCategory2 = $this->languageService->getCategory('wcf.humbug');
 		parent::assertNull($actualLanguageCategory2, 'For an invalid language category name, a value not equal to null has been returned.');
 	}
-	
+
 	/**
 	 * Tests the getCategoryByID method.
 	 */
@@ -213,11 +206,11 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 	{
 		$actualLanguageCategory1 = $this->languageService->getCategoryByID(1);
 		parent::assertEquals(1, $actualLanguageCategory1->getLanguageCategoryID(), 'For an existing ID, a wrong language has been returned.');
-	
+
 		$actualLanguageCategory2 = $this->languageService->getCategoryByID(3);
 		parent::assertNull($actualLanguageCategory2, 'For an invalid id, a value not equal to null has been returned.');
 	}
-	
+
 	/**
 	 * Tests the isValidCategory method.
 	 */
@@ -226,7 +219,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 		parent::assertTrue($this->languageService->isValidCategory('wcf.global'), 'For a valid category, a value not equal to true has been returned.');
 		parent::assertFalse($this->languageService->isValidCategory('wcf.humbug'), 'For an invalid category, a value not equal to false has been returned.');
 	}
-	
+
 	/**
 	 * Tests the getCategories method.
 	 */
@@ -235,32 +228,25 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 		$categories = $this->languageService->getCategories();
 		parent::assertCount(2, $categories, 'The result array contains more or less entries than categories exist.');
 		parent::assertContainsOnlyInstancesOf('\Pzs\Bundle\WCFCoreBundle\Entity\LanguageCategory', $categories, 'The result array does contain elements that are not language categories.');
-		
-		$containsAllCategories = false;
+
 		$contains1 = false;
 		$contains2 = false;
 		$containsOnlyExistingCategories = true;
-		foreach ($categories as $category)
-		{
+		foreach ($categories as $category) {
 			$id = $category->getLanguageCategoryID();
-			if ($id == 1)
-			{
+			if ($id == 1) {
 				$contains1 = true;
-			}
-			elseif ($id == 2)
-			{
+			} elseif ($id == 2) {
 				$contains2 = true;
-			}
-			else
-			{
+			} else {
 				$containsOnlyExistingCategories = false;
 			}
 		}
 		$containsAllCategories = $contains1 && $contains2 && $containsOnlyExistingCategories;
-		
+
 		parent::assertTrue($containsAllCategories, 'The result array contains either not all or more categories than actually exist.');
 	}
-	
+
 	/**
 	 * Tests the fixLanguageCode method.
 	 */
@@ -271,7 +257,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 			->method('getLanguageCode')
 			->will(parent::returnValue('de-informal'));
 		parent::assertEquals('de', $this->languageService->getFixedLanguageCode($language), 'The returned language code doesn\'t fit the expected one.');
-		
+
 		$language = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\Language');
 		$language->expects(parent::once())
 			->method('getLanguageCode')
@@ -280,7 +266,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 		// if no parameter is given, the user language should be used, which in this case is the default language
 		parent::assertEquals('en', $this->languageService->getFixedLanguageCode(), 'The returned language code doesn\'t fit the expected one.');
 	}
-	
+
 	/**
 	 * Tests the getLanguageItem method.
 	 */
@@ -289,7 +275,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 		$languageItemValue = $this->languageService->getLanguageItem('wcf.global.test');
 		parent::assertEquals('testAlpha', $languageItemValue, 'The returned language item value is not correct.');
 	}
-	
+
 	/**
 	 * Tests the getUserLanguage method.
 	 */
@@ -299,11 +285,11 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 		$language = $this->languageService->getUserLanguage();
 		parent::assertEquals(2, $language->getLanguageID(), 'The returned user language is not the default language.');
 	}
-	
+
 	// TODO: implement test for isMultilingualismEnabled
-	
+
 	// ----- helper functions ----//
-	
+
 	/**
 	 * Return language mocks or null depending on the input.
 	 * This is a callback for the find method.
@@ -314,35 +300,34 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 	{
 		$args = func_get_args();
 		$id = $args[0];
-		if ($id == 1)
-		{
+		if ($id == 1) {
 			$language = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\Language');
 			$language->expects(parent::once())
 				->method('getLanguageID')
 				->will(parent::returnValue(1));
 			return $language;
-		}
-		elseif ($id == 2)
-		{
+		} elseif ($id == 2) {
 			$language = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\Language');
 			$language->expects(parent::any())
 				->method('getLanguageID')
 				->will(parent::returnValue(2));
 			$language->expects(parent::any())
 				->method('getLanguageItems')
-				->will(parent::returnCallback(array($this, 'getLanguageItemsCallback')));;
+				->will(parent::returnCallback(array(
+												$this,
+												'getLanguageItemsCallback',
+											)
+				));
 			$language->expects(parent::any())
 				->method('getLanguageCode')
 				->will(parent::returnValue('en'));
 			return $language;
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Return language mocks or null depending on the input.
 	 * This is a method for the findBy method.
@@ -353,28 +338,23 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 	{
 		$args = func_get_args();
 		$languageCode = $args[0]['languageCode'];
-		if ($languageCode == 'de')
-		{
+		if ($languageCode == 'de') {
 			$language = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\Language');
 			$language->expects(parent::once())
 				->method('getLanguageCode')
 				->will(parent::returnValue('de'));
 			return $language;
-		}
-		elseif ($languageCode == 'en')
-		{
+		} elseif ($languageCode == 'en') {
 			$language = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\Language');
 			$language->expects(parent::once())
 				->method('getLanguageCode')
 				->will(parent::returnValue('en'));
 			return $language;
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Return language mocks or null depending on the input.
 	 * This is a method for the findAll method.
@@ -393,8 +373,8 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 			->will(parent::returnValue(2));
 		return array($language, $language2);
 	}
-	
-	
+
+
 	/**
 	 * Return language category mocks or null depending on the input.
 	 * This is a callback for the find method.
@@ -405,29 +385,24 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 	{
 		$args = func_get_args();
 		$id = $args[0];
-		if ($id == 1)
-		{
+		if ($id == 1) {
 			$languageCategory = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\LanguageCategory');
 			$languageCategory->expects(parent::once())
 				->method('getLanguageCategoryID')
 				->will(parent::returnValue(1));
 			return $languageCategory;
-		}
-		elseif ($id == 2)
-		{
+		} elseif ($id == 2) {
 			$languageCategory = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\LanguageCategory');
 			$languageCategory->expects(parent::once())
 				->method('getLanguageCategoryID')
 				->will(parent::returnValue(2));
 			return $languageCategory;
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Return language category mocks or null depending on the input.
 	 * This is a method for the findBy method.
@@ -438,28 +413,23 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 	{
 		$args = func_get_args();
 		$languageCategory = $args[0]['languageCategory'];
-		if ($languageCategory == 'wcf.global')
-		{
+		if ($languageCategory == 'wcf.global') {
 			$languageCategory = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\LanguageCategory');
 			$languageCategory->expects(parent::any())
 				->method('getLanguageCategory')
 				->will(parent::returnValue('wcf.global'));
 			return $languageCategory;
-		}
-		elseif ($languageCategory == 'wcf.acp')
-		{
+		} elseif ($languageCategory == 'wcf.acp') {
 			$languageCategory = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\LanguageCategory');
 			$languageCategory->expects(parent::any())
 				->method('getLanguageCategory')
 				->will(parent::returnValue('wcf.acp'));
 			return $languageCategory;
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Return language category mocks or null depending on the input.
 	 * This is a method for the findAll method.
@@ -478,7 +448,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 			->will(parent::returnValue(2));
 		return array($languageCategory, $languageCategory2);
 	}
-	
+
 	/**
 	 * Return doctrine collection mock or null depending on the input.
 	 * This is a method for the getLanguageItems method.
@@ -496,7 +466,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 			->will(parent::returnValue(true));
 		return $collection;
 	}
-	
+
 	/**
 	 * Returns language item mocks or null depending on the input.
 	 * This is a method for the getLanguageItem method.
@@ -507,18 +477,15 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 	{
 		$args = func_get_args();
 		$languageItem = $args[0];
-		if ($languageItem == 'wcf.global.test')
-		{
+		if ($languageItem == 'wcf.global.test') {
 			$languageItem = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\LanguageItem');
 			$languageItem->expects(parent::once())
 				->method('getLanguageItemValue')
 				->will(parent::returnValue('testAlpha'));
 			return $languageItem;
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
-	
+
 }

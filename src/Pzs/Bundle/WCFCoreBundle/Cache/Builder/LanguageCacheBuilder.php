@@ -24,8 +24,8 @@
 
 namespace Pzs\Bundle\WCFCoreBundle\Cache\Builder;
 
-use Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository;
 use Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository;
+use Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository;
 
 /**
  * Implementation for languages.
@@ -62,11 +62,12 @@ class LanguageCacheBuilder extends AbstractCacheBuilder
 		$this->languageRepository = $languageRepository;
 		$this->languageCategoryRepository = $languageCategoryRepository;
 	}
+
 	/**
 	 * Returns the data that ought to be cached.
-	 * 
+	 *
 	 * @param	array	$parameters
-	 * 
+	 *
 	 * @return	(\Pzs\Bundle\WCFCoreBundle\Entity\Language|\Pzs\Bundle\WCFCoreBundle\Entity\LanguageCategory)[][] array('languages' => array(<id> => <language>), 'languagesByCode' => array(<code> => <language>), 'categories' => array(<id> => <languageCategory>), 'categoriesByName' => array(<name> => <languageCategory>))
 	 */
 	public function getData(array $parameters = array())
@@ -80,15 +81,13 @@ class LanguageCacheBuilder extends AbstractCacheBuilder
 
 		$languages = $this->languageRepository->findAll();
 
-		foreach ($languages as $language)
-		{
+		foreach ($languages as $language) {
 			$data['languages'][$language->getLanguageID()] = $language;
 			$data['languagesByCode'][$language->getLanguageCode()] = $language;
 		}
 
 		$categories = $this->languageCategoryRepository->findAll();
-		foreach ($categories as $category)
-		{
+		foreach ($categories as $category) {
 			$data['categories'][$category->getLanguageCategoryID()] = $category;
 			$data['categoriesByName'][$category->getLanguageCategory()] = $category;
 		}

@@ -32,7 +32,7 @@ namespace Pzs\Bundle\WCFCoreBundle\Cache\Source;
  * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  * @package		pzs/wcf-core-bundle
  */
-class TestCacheSource implements ICacheSource
+class TestCacheSource implements CacheSourceInterface
 {
 	/**
 	 * 

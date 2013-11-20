@@ -94,8 +94,7 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 	{
 		$args = func_get_args();
 		$cacheName = $args[0];
-		if (strpos($cacheName, '-') !== false)
-		{
+		if (strpos($cacheName, '-') !== false) {
 			return array('name' => 'alfonso');
 		}
 		return null;
@@ -110,8 +109,7 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 	{
 		$args = func_get_args();
 		$parameters = $args[0];
-		if (empty($parameters))
-		{
+		if (empty($parameters)) {
 			return array('fuss' => 'alpha');
 		}
 		return array('name' => 'alfonso');

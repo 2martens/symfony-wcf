@@ -32,7 +32,7 @@ namespace Pzs\Bundle\WCFCoreBundle\Cache\Builder;
  * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  * @package		pzs/wcf-core-bundle
  */
-interface ICacheBuilder
+interface CacheBuilderInterface
 {
 	/**
 	 * Returns the data that ought to be cached.
@@ -46,6 +46,6 @@ interface ICacheBuilder
 	 * Returns maximum lifetime for cache resource.
 	 *
 	 * @return	integer
-	*/
+	 */
 	public function getMaxLifetime();
 }

@@ -26,7 +26,6 @@ namespace Pzs\Bundle\WCFCoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Pzs\Bundle\WCFCoreBundle\Entity\LanguageItem;
 
 /**
  * LanguageCategory
@@ -36,29 +35,29 @@ use Pzs\Bundle\WCFCoreBundle\Entity\LanguageItem;
  */
 class LanguageCategory
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="languageCategoryID", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $languageCategoryID;
-	
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="languageCategory", type="string", length=255)
-     */
-    private $languageCategory;
-	
-    /**
+	/**
+	 * @var integer
+	 *
+	 * @ORM\Column(name="languageCategoryID", type="integer")
+	 * @ORM\Id
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	private $languageCategoryID;
+
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="languageCategory", type="string", length=255)
+	 */
+	private $languageCategory;
+
+	/**
 	 * @var	\Doctrine\Common\Collections\ArrayCollection
 	 * 
 	 * @ORM\OneToMany(targetEntity="LanguageItem", mappedBy="languageCategory")
 	 */
 	private $languageItems;
-	
+
 	/**
 	 * Initializes the Language entity.
 	 */
@@ -66,72 +65,72 @@ class LanguageCategory
 	{
 		$this->languageItems = new ArrayCollection();
 	}
-	
-    /**
-     * Get language category id.
-     *
-     * @return	integer 
-     */
-    public function getLanguageCategoryID()
-    {
-        return $this->languageCategoryID;
-    }
-	
-    /**
-     * Set languageCategory.
-     *
-     * @param	string	$languageCategory
-     *
-     * @return	LanguageCategory
-     */
-    public function setLanguageCategory($languageCategory)
-    {
-        $this->languageCategory = $languageCategory;
-    
-        return $this;
-    }
-	
-    /**
-     * Get languageCategory.
-     *
-     * @return	string 
-     */
-    public function getLanguageCategory()
-    {
-        return $this->languageCategory;
-    }
-	
-    /**
-     * Add languageItem.
-     *
-     * @param	LanguageItem $languageItem
-     *
-     * @return	LanguageCategory
-     */
-    public function addLanguageItem(LanguageItem $languageItem)
-    {
-        $this->languageItems->set($languageItem->getLanguageItem(), $languageItem);
-    
-        return $this;
-    }
-	
-    /**
-     * Remove languageItem.
-     *
-     * @param	LanguageItem $languageItem
-     */
-    public function removeLanguageItem(LanguageItem $languageItem)
-    {
-        $this->languageItems->removeElement($languageItem);
-    }
-	
-    /**
-     * Get languageItems.
-     *
-     * @return	\Doctrine\Common\Collections\Collection 
-     */
-    public function getLanguageItems()
-    {
-        return $this->languageItems;
-    }
+
+	/**
+	 * Get language category id.
+	 *
+	 * @return	integer
+	 */
+	public function getLanguageCategoryID()
+	{
+		return $this->languageCategoryID;
+	}
+
+	/**
+	 * Set languageCategory.
+	 *
+	 * @param	string	$languageCategory
+	 *
+	 * @return	LanguageCategory
+	 */
+	public function setLanguageCategory($languageCategory)
+	{
+		$this->languageCategory = $languageCategory;
+
+		return $this;
+	}
+
+	/**
+	 * Get languageCategory.
+	 *
+	 * @return	string
+	 */
+	public function getLanguageCategory()
+	{
+		return $this->languageCategory;
+	}
+
+	/**
+	 * Add languageItem.
+	 *
+	 * @param	LanguageItem $languageItem
+	 *
+	 * @return	LanguageCategory
+	 */
+	public function addLanguageItem(LanguageItem $languageItem)
+	{
+		$this->languageItems->set($languageItem->getLanguageItem(), $languageItem);
+
+		return $this;
+	}
+
+	/**
+	 * Remove languageItem.
+	 *
+	 * @param	LanguageItem $languageItem
+	 */
+	public function removeLanguageItem(LanguageItem $languageItem)
+	{
+		$this->languageItems->removeElement($languageItem);
+	}
+
+	/**
+	 * Get languageItems.
+	 *
+	 * @return	\Doctrine\Common\Collections\Collection
+	 */
+	public function getLanguageItems()
+	{
+		return $this->languageItems;
+	}
 }

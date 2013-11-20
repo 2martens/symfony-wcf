@@ -36,7 +36,7 @@ abstract class AbstractCacheBuilderTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * The cache builder.
-	 * @var	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder
+	 * @var	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\CacheBuilderInterface
 	 */
 	protected $cacheBuilder;
 
@@ -66,7 +66,7 @@ abstract class AbstractCacheBuilderTest extends \PHPUnit_Framework_TestCase
 	 * 
 	 * @param	string	$newClass
 	 * 
-	 * @return	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\ICacheBuilder
+	 * @return	\Pzs\Bundle\WCFCoreBundle\Cache\Builder\CacheBuilderInterface
 	 */
 	abstract protected function constructCacheBuilder($newClass);
 }

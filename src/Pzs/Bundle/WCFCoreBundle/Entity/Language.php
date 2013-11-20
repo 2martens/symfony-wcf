@@ -26,7 +26,6 @@ namespace Pzs\Bundle\WCFCoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Pzs\Bundle\WCFCoreBundle\Entity\LanguageItem;
 
 /**
  * Language
@@ -44,49 +43,49 @@ class Language
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	private $languageID;
-	
+
 	/**
 	 * @var string
 	 *
 	 * @ORM\Column(name="languageCode", type="string", length=20)
 	 */
 	private $languageCode;
-	
+
 	/**
 	 * @var string
 	 *
 	 * @ORM\Column(name="languageName", type="string", length=255)
 	 */
 	private $languageName;
-	
+
 	/**
 	 * @var string
 	 *
 	 * @ORM\Column(name="countryCode", type="string", length=10)
 	 */
 	private $countryCode;
-	
+
 	/**
 	 * @var boolean
 	 *
 	 * @ORM\Column(name="isDefault", type="boolean")
 	 */
 	private $isDefault;
-	
+
 	/**
 	 * @var boolean
 	 *
 	 * @ORM\Column(name="hasContent", type="boolean")
 	 */
 	private $hasContent;
-	
+
 	/**
 	 * @var	\Doctrine\Common\Collections\ArrayCollection
 	 * 
 	 * @ORM\OneToMany(targetEntity="LanguageItem", mappedBy="language")
 	 */
 	private $languageItems;
-	
+
 	/**
 	 * Initializes the Language entity.
 	 */
@@ -94,7 +93,7 @@ class Language
 	{
 		$this->languageItems = new ArrayCollection();
 	}
-	
+
 	/**
 	 * Get language id.
 	 *
@@ -104,7 +103,7 @@ class Language
 	{
 		return $this->languageID;
 	}
-	
+
 	/**
 	 * Set languageCode.
 	 *
@@ -117,7 +116,7 @@ class Language
 
 		return $this;
 	}
-	
+
 	/**
 	 * Get languageCode.
 	 *
@@ -127,7 +126,7 @@ class Language
 	{
 		return $this->languageCode;
 	}
-	
+
 	/**
 	 * Set languageName.
 	 *
@@ -140,7 +139,7 @@ class Language
 
 		return $this;
 	}
-	
+
 	/**
 	 * Get languageName.
 	 *
@@ -150,7 +149,7 @@ class Language
 	{
 		return $this->languageName;
 	}
-	
+
 	/**
 	 * Set countryCode.
 	 *
@@ -163,7 +162,7 @@ class Language
 
 		return $this;
 	}
-	
+
 	/**
 	 * Get countryCode.
 	 *
@@ -173,7 +172,7 @@ class Language
 	{
 		return $this->countryCode;
 	}
-	
+
 	/**
 	 * Set isDefault.
 	 *
@@ -186,7 +185,7 @@ class Language
 
 		return $this;
 	}
-	
+
 	/**
 	 * Get isDefault.
 	 *
@@ -196,7 +195,7 @@ class Language
 	{
 		return $this->isDefault;
 	}
-	
+
 	/**
 	 * Set hasContent.
 	 *
@@ -209,7 +208,7 @@ class Language
 
 		return $this;
 	}
-	
+
 	/**
 	 * Get hasContent.
 	 *
@@ -219,37 +218,37 @@ class Language
 	{
 		return $this->hasContent;
 	}
-	
-    /**
-     * Add languageItem.
-     *
-     * @param	LanguageItem $languageItem
-     * @return	Language
-     */
-    public function addLanguageItem(LanguageItem $languageItem)
-    {
-        $this->languageItems->set($languageItem->getLanguageItem(), $languageItem);
-    
-        return $this;
-    }
-	
-    /**
-     * Remove languageItem.
-     *
-     * @param LanguageItem $languageItem
-     */
-    public function removeLanguageItem(LanguageItem $languageItem)
-    {
-        $this->languageItems->removeElement($languageItem);
-    }
-	
-    /**
-     * Get languageItems.
-     *
-     * @return	\Doctrine\Common\Collections\Collection 
-     */
-    public function getLanguageItems()
-    {
-        return $this->languageItems;
-    }
+
+	/**
+	 * Add languageItem.
+	 *
+	 * @param	LanguageItem $languageItem
+	 * @return	Language
+	 */
+	public function addLanguageItem(LanguageItem $languageItem)
+	{
+		$this->languageItems->set($languageItem->getLanguageItem(), $languageItem);
+
+		return $this;
+	}
+
+	/**
+	 * Remove languageItem.
+	 *
+	 * @param LanguageItem $languageItem
+	 */
+	public function removeLanguageItem(LanguageItem $languageItem)
+	{
+		$this->languageItems->removeElement($languageItem);
+	}
+
+	/**
+	 * Get languageItems.
+	 *
+	 * @return	\Doctrine\Common\Collections\Collection
+	 */
+	public function getLanguageItems()
+	{
+		return $this->languageItems;
+	}
 }

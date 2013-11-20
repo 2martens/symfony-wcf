@@ -20,7 +20,7 @@
  * @copyright	2011-2012 Jim Martens
  * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  * @package		pzs/wcf-core-bundle
-*/
+ */
 
 namespace Pzs\Bundle\WCFCoreBundle\Controller;
 
@@ -32,7 +32,7 @@ namespace Pzs\Bundle\WCFCoreBundle\Controller;
  * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  * @package		pzs/wcf-core-bundle
  */
-interface IPageController
+interface PageControllerInterface
 {
 	/**
 	 * Reads parameters.

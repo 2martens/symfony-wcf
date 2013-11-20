@@ -32,12 +32,12 @@ namespace Pzs\Bundle\WCFCoreBundle\Cache\Builder;
  * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  * @package		pzs/wcf-core-bundle
  */
-abstract class AbstractCacheBuilder implements ICacheBuilder
+abstract class AbstractCacheBuilder implements CacheBuilderInterface
 {
 	/**
 	 * maximum cache lifetime in seconds, '0' equals infinite
 	 * @var	integer
-	*/
+	 */
 	protected $maxLifetime;
 
 	/**
@@ -50,7 +50,7 @@ abstract class AbstractCacheBuilder implements ICacheBuilder
 	{
 		$this->maxLifetime = 0;
 	}
-	
+
 	/**
 	 * 
 	 */

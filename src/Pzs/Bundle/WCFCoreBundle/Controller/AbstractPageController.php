@@ -20,12 +20,11 @@
  * @copyright	2011-2012 Jim Martens
  * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  * @package		pzs/wcf-core-bundle
-*/
+ */
 
 namespace Pzs\Bundle\WCFCoreBundle\Controller;
 
 use Pzs\Bundle\WCFCoreBundle\Exception\InvalidTypeException;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -40,7 +39,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  * @package		pzs/wcf-core-bundle
  */
-abstract class AbstractPageController extends Controller implements IPageController
+abstract class AbstractPageController extends Controller implements PageControllerInterface
 {
 	
 	/**
@@ -63,15 +62,16 @@ abstract class AbstractPageController extends Controller implements IPageControl
 	 * @var mixed[]
 	 */
 	private $templateVariables = array();
-	
+
 	/**
-	 * Controller action. 
+	 * Controller action.
 	 * Simply add a routing info to your bundle's config that
-	 * uses your controller's showAction method. 
+	 * uses your controller's showAction method.
 	 * If you don't want to use a template, set the variable accordingly and
 	 * extend the method createResponse and return your response object.
-	 * 
-	 * @return	\Symfony\Component\HttpFoundation\Response
+	 *
+	 * @throws  \Pzs\Bundle\WCFCoreBundle\Exception\InvalidTypeException    if $this->createResponse does not return an object of type Response
+	 * @return  \Symfony\Component\HttpFoundation\Response
 	 */
 	public final function showAction()
 	{
@@ -79,18 +79,14 @@ abstract class AbstractPageController extends Controller implements IPageControl
 		$this->readData();
 		$this->assignVariables();
 		
-		if ($this->useTemplate)
-		{
+		if ($this->useTemplate) {
 			return $this->render(
 				$this->templateName, // the view
 				$this->templateVariables // the assigned template variables
 			);
-		}
-		else
-		{
+		} else {
 			$response = $this->createResponse();
-			if (!($response instanceof Response))
-			{
+			if (!($response instanceof Response)) {
 				throw new InvalidTypeException('createResponse must return an object of type Response if no template is used. Actually no template is used.');
 			}
 			return $response;
@@ -104,7 +100,7 @@ abstract class AbstractPageController extends Controller implements IPageControl
 	 * 
 	 * @return	\Symfony\Component\HttpFoundation\Response|NULL	NULL if and only if a template is used
 	 */
-	protected abstract function createResponse();
+	abstract protected function createResponse();
 	
 	// template methods following
 	
@@ -127,28 +123,27 @@ abstract class AbstractPageController extends Controller implements IPageControl
 	 */
 	protected final function assignMultiple(array $variables)
 	{
-		foreach ($variables as $varName => $varContent)
-		{
+		foreach ($variables as $varName => $varContent) {
 			$varName = trim($varName);
 			$this->assignSingle($varName, $varContent);
 		}
 	}
-	
+
 	/**
 	 * Appends the content to an already assigned variable.
-	 * 
-	 * @param	string	$varName	has to be an assigned var
-	 * @param	string	$varContent	only string variables may be appended
+	 *
+	 * @param   string $varName    has to be an assigned var
+	 * @param   string $varContent only string variables may be appended
+	 *
+	 * @throws  \InvalidArgumentException
 	 */
 	protected final function appendSingle($varName, $varContent)
 	{
 		$varName = trim($varName);
-		if (!$this->isAssigned($varName))
-		{
+		if (!$this->isAssigned($varName)) {
 			throw new \InvalidArgumentException('The varName doesn\'t belong to an assigned variable.');
 		}
-		if (!is_string($this->templateVariables[$varName]))
-		{
+		if (!is_string($this->templateVariables[$varName])) {
 			throw new \InvalidArgumentException('Only string values may be appended.');
 		}
 		$this->templateVariables[$varName] .= $varContent;
@@ -161,8 +156,7 @@ abstract class AbstractPageController extends Controller implements IPageControl
 	 */
 	protected final function appendMultiple(array $variables)
 	{
-		foreach ($variables as $varName => $varContent)
-		{
+		foreach ($variables as $varName => $varContent) {
 			$varName = trim($varName);
 			$this->appendSingle($varName, $varContent);
 		}
@@ -180,19 +174,19 @@ abstract class AbstractPageController extends Controller implements IPageControl
 		$varName = trim($varName);
 		return isset($this->templateVariables[$varName]);
 	}
-	
+
 	/**
 	 * Returns an assigned var.
-	 * 
-	 * @param	string	$varName	has to be an assigned var
-	 * 
-	 * @return	mixed	the content belonging to the given varName
+	 *
+	 * @param   string  $varName    has to be an assigned var
+	 *
+	 * @throws  \InvalidArgumentException
+	 * @return  mixed   the content belonging to the given varName
 	 */
 	protected final function getAssignedVar($varName)
 	{
 		$varName = trim($varName);
-		if (!$this->isAssigned($varName))
-		{
+		if (!$this->isAssigned($varName)) {
 			throw new \InvalidArgumentException('The varName doesn\'t belong to an assigned variable.');
 		}
 		return $this->templateVariables[$varName];

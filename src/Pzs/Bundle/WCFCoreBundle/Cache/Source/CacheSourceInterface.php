@@ -32,7 +32,7 @@ namespace Pzs\Bundle\WCFCoreBundle\Cache\Source;
  * @license		http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  * @package		pzs/wcf-core-bundle
  */
-interface ICacheSource
+interface CacheSourceInterface
 {
 	/**
 	 * Flushes a specific cache, optionally removing caches which share the same name.
@@ -63,6 +63,6 @@ interface ICacheSource
 	 * @param	string	$cacheName
 	 * @param	mixed	$value
 	 * @param	integer	$maxLifetime
-	*/
+	 */
 	public function set($cacheName, $value, $maxLifetime);
 }
