@@ -68,7 +68,7 @@ class LanguageCacheBuilder extends AbstractCacheBuilder
 	 *
 	 * @param	array	$parameters
 	 *
-	 * @return	(\Pzs\Bundle\WCFCoreBundle\Entity\Language|\Pzs\Bundle\WCFCoreBundle\Entity\LanguageCategory)[][] array('languages' => array(<id> => <language>), 'languagesByCode' => array(<code> => <language>), 'categories' => array(<id> => <languageCategory>), 'categoriesByName' => array(<name> => <languageCategory>))
+	 * @return	array array('languages' => array(id => language), 'languagesByCode' => array(code => language), 'categories' => array(id => languageCategory), 'categoriesByName' => array(name => languageCategory))
 	 */
 	public function getData(array $parameters = array())
 	{
@@ -78,7 +78,7 @@ class LanguageCacheBuilder extends AbstractCacheBuilder
 			'categories' => array(),
 			'categoriesByName' => array()
 		);
-
+		/** @var $languages \Pzs\Bundle\WCFCoreBundle\Entity\Language[] */
 		$languages = $this->languageRepository->findAll();
 
 		foreach ($languages as $language) {
@@ -86,6 +86,7 @@ class LanguageCacheBuilder extends AbstractCacheBuilder
 			$data['languagesByCode'][$language->getLanguageCode()] = $language;
 		}
 
+		/** @var $categories \Pzs\Bundle\WCFCoreBundle\Entity\LanguageCategory[] */
 		$categories = $this->languageCategoryRepository->findAll();
 		foreach ($categories as $category) {
 			$data['categories'][$category->getLanguageCategoryID()] = $category;
