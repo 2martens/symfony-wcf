@@ -31,6 +31,8 @@
 	<rule ref="Squiz.PHP.ForbiddenFunctions" />
 	<rule ref="Squiz.Scope.MethodScope" />
 	<rule ref="WCF.Classes.ClassFileName" />
+	<rule ref="WCF.Commenting.ClassComment" />
+	<rule ref="WCF.Commenting.FunctionComment" />
 	<rule ref="WCF.ControlStructures.ControlSignature" />
 	<rule ref="WCF.Formatting.BlankLineBeforeReturn" />
 	<rule ref="WCF.Methods.MethodDeclaration" />
