@@ -30,7 +30,8 @@ class WCF_Sniffs_ControlStructures_ControlSignatureSniff extends PHP_CodeSniffer
 	 *
 	 * @return array(string)
 	 */
-	protected function getPatterns() {
+	protected function getPatterns()
+	{
 		return array(
 			'try {EOL...}EOL...catch (...) {',
 			'do {EOL...}EOL...while (...);EOL',
