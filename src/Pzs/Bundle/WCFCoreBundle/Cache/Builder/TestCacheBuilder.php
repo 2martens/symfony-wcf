@@ -39,6 +39,6 @@ class TestCacheBuilder extends AbstractCacheBuilder
 	 */
 	public function getData(array $parameters = array())
 	{
-		
+		return array();
 	}
 }
