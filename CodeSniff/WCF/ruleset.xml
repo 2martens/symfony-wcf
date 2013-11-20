@@ -32,6 +32,7 @@
 	<rule ref="Squiz.Scope.MethodScope" />
 	<rule ref="WCF.Classes.ClassFileName" />
 	<rule ref="WCF.ControlStructures.ControlSignature" />
+	<rule ref="WCF.Formatting.BlankLineBeforeReturn" />
 	<rule ref="WCF.Methods.MethodDeclaration" />
 	<rule ref="WCF.Namespaces.ClassMustBeImported" />
 	<rule ref="WCF.Namespaces.SortedUseDeclaration" />

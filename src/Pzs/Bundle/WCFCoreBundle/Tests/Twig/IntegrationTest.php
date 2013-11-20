@@ -49,6 +49,7 @@ class WCFTwigIntegrationTest extends \Twig_Test_IntegrationTestCase
 		$languageService->expects(parent::once())
 			->method('getLanguageItem')
 			->will(parent::returnValue('hello world'));
+
 		return array(
 			new WCFCoreExtension($languageService),
 		);

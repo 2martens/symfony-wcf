@@ -83,14 +83,14 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 			->will(parent::returnValue('de'));
 		$language->expects(parent::any())
 			->method('getLanguageItems')
-			->will(parent::returnCallback(array($this, 'getLanguageItemsCallback')));;
+			->will(parent::returnCallback(array($this, 'getLanguageItemsCallback')));
 		$language2 = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\Language');
 		$language2->expects(parent::any())
 			->method('getLanguageID')
 			->will(parent::returnValue(2));
 		$language2->expects(parent::any())
 			->method('getLanguageItems')
-			->will(parent::returnCallback(array($this, 'getLanguageItemsCallback')));;
+			->will(parent::returnCallback(array($this, 'getLanguageItemsCallback')));
 		$language2->expects(parent::any())
 			->method('getLanguageCode')
 			->will(parent::returnValue('en'));
@@ -113,8 +113,8 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 			)));
 
 		$this->languageService = new LanguageService($languageRepository, 
-													 $languageCategoryRepository,
-													 $cacheService);
+													$languageCategoryRepository,
+													$cacheService);
 		$this->languageService->setDefaultLanguage(2);
 	}
 
@@ -305,6 +305,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 			$language->expects(parent::once())
 				->method('getLanguageID')
 				->will(parent::returnValue(1));
+
 			return $language;
 		} elseif ($id == 2) {
 			$language = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\Language');
@@ -313,14 +314,11 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 				->will(parent::returnValue(2));
 			$language->expects(parent::any())
 				->method('getLanguageItems')
-				->will(parent::returnCallback(array(
-												$this,
-												'getLanguageItemsCallback',
-											)
-				));
+				->will(parent::returnCallback(array($this, 'getLanguageItemsCallback')));
 			$language->expects(parent::any())
 				->method('getLanguageCode')
 				->will(parent::returnValue('en'));
+
 			return $language;
 		} else {
 			return null;
@@ -343,12 +341,14 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 			$language->expects(parent::once())
 				->method('getLanguageCode')
 				->will(parent::returnValue('de'));
+
 			return $language;
 		} elseif ($languageCode == 'en') {
 			$language = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\Language');
 			$language->expects(parent::once())
 				->method('getLanguageCode')
 				->will(parent::returnValue('en'));
+
 			return $language;
 		} else {
 			return null;
@@ -371,6 +371,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 		$language2->expects(parent::once())
 			->method('getLanguageID')
 			->will(parent::returnValue(2));
+
 		return array($language, $language2);
 	}
 
@@ -390,12 +391,14 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 			$languageCategory->expects(parent::once())
 				->method('getLanguageCategoryID')
 				->will(parent::returnValue(1));
+
 			return $languageCategory;
 		} elseif ($id == 2) {
 			$languageCategory = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\LanguageCategory');
 			$languageCategory->expects(parent::once())
 				->method('getLanguageCategoryID')
 				->will(parent::returnValue(2));
+
 			return $languageCategory;
 		} else {
 			return null;
@@ -418,12 +421,14 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 			$languageCategory->expects(parent::any())
 				->method('getLanguageCategory')
 				->will(parent::returnValue('wcf.global'));
+
 			return $languageCategory;
 		} elseif ($languageCategory == 'wcf.acp') {
 			$languageCategory = $this->getMock('\Pzs\Bundle\WCFCoreBundle\Entity\LanguageCategory');
 			$languageCategory->expects(parent::any())
 				->method('getLanguageCategory')
 				->will(parent::returnValue('wcf.acp'));
+
 			return $languageCategory;
 		} else {
 			return null;
@@ -446,6 +451,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 		$languageCategory2->expects(parent::once())
 			->method('getLanguageCategoryID')
 			->will(parent::returnValue(2));
+
 		return array($languageCategory, $languageCategory2);
 	}
 
@@ -464,6 +470,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 		$collection->expects(parent::once())
 			->method('containsKey')
 			->will(parent::returnValue(true));
+
 		return $collection;
 	}
 
@@ -482,6 +489,7 @@ class LanguageServiceTest extends \PHPUnit_Framework_TestCase
 			$languageItem->expects(parent::once())
 				->method('getLanguageItemValue')
 				->will(parent::returnValue('testAlpha'));
+
 			return $languageItem;
 		} else {
 			return null;

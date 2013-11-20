@@ -91,6 +91,7 @@ class LanguageCacheBuilder extends AbstractCacheBuilder
 			$data['categories'][$category->getLanguageCategoryID()] = $category;
 			$data['categoriesByName'][$category->getLanguageCategory()] = $category;
 		}
+
 		return $data;
 	}
 }

@@ -112,6 +112,7 @@ class LanguageService implements LanguageServiceInterface
 		} else {
 			$this->cacheData['languages'][$languageID] = $language = $this->languageRepository->find($languageID);
 		}
+
 		return $language;
 	}
 
@@ -140,6 +141,7 @@ class LanguageService implements LanguageServiceInterface
 		if ($userLanguage === null) {
 			$userLanguage = $this->getLanguage($this->defaultLanguageID);
 		}
+
 		return $userLanguage; 
 	}
 
@@ -154,6 +156,7 @@ class LanguageService implements LanguageServiceInterface
 		} else {
 			$this->cacheData['languagesByCode'][$languageCode] = $language = $this->languageRepository->findBy(array('languageCode' => $languageCode));
 		}
+
 		return $language;
 	}
 
@@ -163,6 +166,7 @@ class LanguageService implements LanguageServiceInterface
 	public function isValidCategory($categoryName)
 	{
 		$category = $this->getCategory($categoryName);
+
 		return $category !== null;
 	}
 
@@ -177,6 +181,7 @@ class LanguageService implements LanguageServiceInterface
 		} else {
 			$this->cacheData['categoriesByName'][$categoryName] = $category = $this->languageCategoryRepository->findBy(array('languageCategory' => $categoryName));
 		}
+
 		return $category;
 	}
 
@@ -191,6 +196,7 @@ class LanguageService implements LanguageServiceInterface
 		} else {
 			$this->cacheData['categories'][$categoryID] = $category = $this->languageCategoryRepository->find($categoryID);
 		}
+
 		return $category;
 	}
 
@@ -203,6 +209,7 @@ class LanguageService implements LanguageServiceInterface
 		if (empty($categories)) {
 			$this->cacheData['categories'] = $categories = $this->languageCategoryRepository->findAll();
 		}
+
 		return $categories;
 	}
 
@@ -223,6 +230,7 @@ class LanguageService implements LanguageServiceInterface
 		if (empty($languages)) {
 			$this->cacheData['languages'] = $languages = $this->languageRepository->findAll();
 		}
+
 		return $languages;
 	}
 
@@ -251,6 +259,7 @@ class LanguageService implements LanguageServiceInterface
 			$language = $this->getUserLanguage();
 		}
 		$languageCode = $language->getLanguageCode();
+
 		return preg_replace('/-[a-z0-9]+/', '', $languageCode);
 	}
 }

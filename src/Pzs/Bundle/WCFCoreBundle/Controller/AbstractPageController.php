@@ -47,21 +47,33 @@ abstract class AbstractPageController extends Controller implements PageControll
 	 * The logical template name consisting of Bundle:Controller:templateName.
 	 * @var string
 	 */
-	protected $templateName = '';
+	protected $templateName;
 	
 	/**
 	 * Determines if a template is to be used.
 	 * It is true by default.
 	 * @var boolean
 	 */
-	protected $useTemplate = true;
+	protected $useTemplate;
 	
 	/**
 	 * Assigned template variables.
 	 * Will be filled by method call.
 	 * @var mixed[]
 	 */
-	private $templateVariables = array();
+	private $templateVariables;
+
+	/**
+	 * Constructor.
+	 *
+	 * Overwrite if you want to change the templateName or the useTemplate setting.
+	 */
+	public function __construct()
+	{
+		$this->templateName = '';
+		$this->useTemplate = true;
+		$this->templateVariables = array();
+	}
 
 	/**
 	 * Controller action.
@@ -172,6 +184,7 @@ abstract class AbstractPageController extends Controller implements PageControll
 	protected final function isAssigned($varName)
 	{
 		$varName = trim($varName);
+
 		return isset($this->templateVariables[$varName]);
 	}
 
@@ -189,6 +202,7 @@ abstract class AbstractPageController extends Controller implements PageControll
 		if (!$this->isAssigned($varName)) {
 			throw new \InvalidArgumentException('The varName doesn\'t belong to an assigned variable.');
 		}
+
 		return $this->templateVariables[$varName];
 	}
 }

@@ -97,6 +97,7 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 		if (strpos($cacheName, '-') !== false) {
 			return array('name' => 'alfonso');
 		}
+
 		return null;
 	}
 
@@ -112,6 +113,7 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
 		if (empty($parameters)) {
 			return array('fuss' => 'alpha');
 		}
+
 		return array('name' => 'alfonso');
 	}
 	

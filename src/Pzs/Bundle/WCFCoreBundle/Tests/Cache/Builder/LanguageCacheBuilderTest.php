@@ -51,6 +51,7 @@ class LanguageCacheBuilderTest extends AbstractCacheBuilderTest
 		$languageCategoryRepository->expects(parent::any())
 			->method('findAll')
 			->will(parent::returnCallback(array($this, 'findAllLanguageCategoryCallback')));
+
 		return new $newClass($languageRepository, $languageCategoryRepository);
 	}
 

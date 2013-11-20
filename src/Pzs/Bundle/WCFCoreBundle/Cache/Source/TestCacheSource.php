@@ -55,7 +55,7 @@ class TestCacheSource implements CacheSourceInterface
 	 */
 	public function get($cacheName, $maxLifetime)
 	{
-
+		return null;
 	}
 	
 	/**

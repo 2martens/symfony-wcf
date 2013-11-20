@@ -85,6 +85,7 @@ class WCFCoreExtension extends \Twig_Extension
 	{
 		$langVar = trim($langVar);
 		$parsedLangVar = $this->languageService->getLanguageItem($langVar);
+
 		return $parsedLangVar;
 	}
 
