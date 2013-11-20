@@ -19,22 +19,22 @@
 
     <testsuites>
         <testsuite name="WCF Test Suite">
-            <directory>./src/Pzs/Bundle/*/Tests/</directory>
+            <directory>src/Pzs/Bundle/*/Tests/</directory>
         </testsuite>
     </testsuites>
 
-    <groups>
-        <exclude>
-            <group>benchmark</group>
-        </exclude>
-    </groups>
+	<groups>
+		<exclude>
+			<group>benchmark</group>
+		</exclude>
+	</groups>
 
-    <filter>
+	<filter>
         <whitelist>
-            <directory>./src/Pzs/</directory>
+            <directory>src/Pzs/</directory>
             <exclude>
-                <directory>./src/Pzs/Bundle/*/Tests</directory>
-                <directory>./src/Pzs/Bundle/*/Resources</directory>
+                <directory>src/Pzs/Bundle/*/Tests</directory>
+                <directory>src/Pzs/Bundle/*/Resources</directory>
             </exclude>
         </whitelist>
     </filter>
