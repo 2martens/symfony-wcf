@@ -17,7 +17,7 @@
 	<rule ref="Generic.PHP.CharacterBeforePHPOpeningTag" />
 	<rule ref="Generic.PHP.DisallowShortOpenTag" />
 	<rule ref="Generic.PHP.LowerCaseConstant" />
-	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent" />
+	<rule ref="Generic.WhiteSpace.DisallowTabIndent" />
 	<rule ref="Squiz.Arrays.ArrayBracketSpacing" />
 	<rule ref="Squiz.Classes.LowercaseClassKeywords" />
 	<rule ref="Squiz.Classes.SelfMemberReference" />
