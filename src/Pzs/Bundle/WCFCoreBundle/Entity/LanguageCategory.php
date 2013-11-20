@@ -26,6 +26,7 @@ namespace Pzs\Bundle\WCFCoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Pzs\Bundle\WCFCoreBundle\Entity\LanguageItem;
 
 /**
  * LanguageCategory
@@ -80,6 +81,7 @@ class LanguageCategory
      * Set languageCategory.
      *
      * @param	string	$languageCategory
+     *
      * @return	LanguageCategory
      */
     public function setLanguageCategory($languageCategory)
@@ -102,10 +104,11 @@ class LanguageCategory
     /**
      * Add languageItem.
      *
-     * @param	\Pzs\Bundle\WCFCoreBundle\Entity\LanguageItem $languageItem
+     * @param	LanguageItem $languageItem
+     *
      * @return	LanguageCategory
      */
-    public function addLanguageItem(\Pzs\Bundle\WCFCoreBundle\Entity\LanguageItem $languageItem)
+    public function addLanguageItem(LanguageItem $languageItem)
     {
         $this->languageItems->set($languageItem->getLanguageItem(), $languageItem);
     
@@ -115,9 +118,9 @@ class LanguageCategory
     /**
      * Remove languageItem.
      *
-     * @param	\Pzs\Bundle\WCFCoreBundle\Entity\LanguageItem $languageItem
+     * @param	LanguageItem $languageItem
      */
-    public function removeLanguageItem(\Pzs\Bundle\WCFCoreBundle\Entity\LanguageItem $languageItem)
+    public function removeLanguageItem(LanguageItem $languageItem)
     {
         $this->languageItems->removeElement($languageItem);
     }
