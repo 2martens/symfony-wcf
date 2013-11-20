@@ -1,37 +1,37 @@
 {
-	"name" : "pzs/symfony-wcf",
-	"description" : "The WCF extensions",
-	"type" : "library",
-	"authors" : [{
-			"name" : "Jim Martens",
-			"email" : "admin@plugins-zum-selberbauen.de"
-		}
-	],
-	"license" : "LGPL-3.0",
-	"require" : {
-		"symfony/symfony" : "~2.4",
-		"symfony/swiftmailer-bundle" : "~2.3",
-		"doctrine/orm" : "~2.2,>=2.2.3",
-		"symfony/assetic-bundle" : "~2.3",
-		"incenteev/composer-parameter-handler" : "~2.0",
-		"twig/extensions" : "~1.0",
-		"php" : ">=5.3.3",
-		"sensio/generator-bundle" : "~2.3",
-		"symfony/monolog-bundle" : "~2.4",
-		"sensio/framework-extra-bundle" : "~2.3",
-		"doctrine/doctrine-bundle" : "~1.2",
-		"sensio/distribution-bundle" : "~2.3"
-	},
-	"require-dev" : {
-		"phpunit/phpunit" : "3.7.*",
-		"squizlabs/php_codesniffer" : "1.*",
-		"pdepend/pdepend" : "1.1.0",
-		"phpmd/phpmd" : "1.4.*"
-	},
-	"autoload" : {
-		"psr-0" : {
-			"Pzs\\" : "src/"
-		}
-	},
-	"minimum-stability" : "dev"
+    "name" : "pzs/symfony-wcf",
+    "description" : "The WCF extensions",
+    "type" : "library",
+    "authors" : [{
+            "name" : "Jim Martens",
+            "email" : "admin@plugins-zum-selberbauen.de"
+        }
+    ],
+    "license" : "LGPL-3.0",
+    "require" : {
+        "symfony/symfony" : "~2.4",
+        "symfony/swiftmailer-bundle" : "~2.3",
+        "doctrine/orm" : "~2.2,>=2.2.3",
+        "symfony/assetic-bundle" : "~2.3",
+        "incenteev/composer-parameter-handler" : "~2.0",
+        "twig/extensions" : "~1.0",
+        "php" : ">=5.3.3",
+        "sensio/generator-bundle" : "~2.3",
+        "symfony/monolog-bundle" : "~2.4",
+        "sensio/framework-extra-bundle" : "~2.3",
+        "doctrine/doctrine-bundle" : "~1.2",
+        "sensio/distribution-bundle" : "~2.3"
+    },
+    "require-dev" : {
+        "phpunit/phpunit" : "3.7.*",
+        "squizlabs/php_codesniffer" : "1.*",
+        "pdepend/pdepend" : "1.1.0",
+        "phpmd/phpmd" : "1.4.*"
+    },
+    "autoload" : {
+        "psr-0" : {
+            "Pzs\\" : "src/"
+        }
+    },
+    "minimum-stability" : "dev"
 }
