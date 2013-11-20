@@ -101,6 +101,7 @@ abstract class AbstractPageController extends Controller implements PageControll
 			if (!($response instanceof Response)) {
 				throw new InvalidTypeException('createResponse must return an object of type Response if no template is used. Actually no template is used.');
 			}
+
 			return $response;
 		}
 	}
