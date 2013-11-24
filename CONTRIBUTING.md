@@ -196,7 +196,7 @@ Once you are done with your work, submit it as a pull request (possible via Gith
 you must select the dev branch of the [original project][2]. The title of the pull requests should be named after your
 branch. This simplifies searching for existing pull requests that intend to resolve a certain issue.
 
-If you fixed an issue described by a bug report, write into the pull request message "Fixed #<issueNr>.". That way
+If you fixed an issue described by a bug report, write into the pull request message ``"Fixed #<issueNr>."``. That way
 Github will close the related issue automatically once the pull request is merged into dev. If you have implemented
 a new feature of a feature request, replace the Fixed with Resolved and describe shortly what you have done.
 
