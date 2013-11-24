@@ -51,13 +51,18 @@ Contributing
 The WCF extensions are free software (as in free speech). If you'd like to contribute,
 please read the [Contributing Code][4] part of the documentation. If you're submitting
 a pull request, please follow the guidelines in the [Submitting a Patch][5] section
-and use [Pull Request Template][6].
+and use [Pull Request Template][6]. These links are for Symfony itself but many things
+are valid for the WCF extensions as well. Of course you will find other branches for
+the WCF extensions. For more detailed information on how to contribute specifically
+to the WCF extensions, refer to CONTRIBUTING.md in this directory.
 
 Running Symfony2 Tests
 ----------------------
 
 Information on how to run the Symfony2 test suite can be found in the
-[Running Symfony2 Tests][7] section.
+[Running Symfony2 Tests][7] section. Testing the WCF extensions is not much different.
+Actually the only difference is, that under the src/ directory you will find other files
+then shown in an example on that site.
 
 [1]: https://github.com/frmwrk123/symfony-wcf-edition
 [2]: http://symfony.com/get_started
