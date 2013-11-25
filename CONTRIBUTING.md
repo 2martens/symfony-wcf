@@ -9,7 +9,7 @@ minimalistic grammar is used:
 
 Optional elements are enclosed in braces {} and alternatives are enclosed in parantheses and divided by a pipe
 (alt1|alt2). Optional alternatives are enclosed in braces and parantheses {(alt3|alt4)}. A placeholder is enclosed by
-< and >.
+`<` and `>`.
 
 Download
 --------
@@ -78,6 +78,15 @@ has code to deal with it. The main goal of the tests is to test that the method 
 if correct input is given. If no external input is sent to a method (from the user or third party libraries), a method
 must not test for invalid input as it is in the responsibility of the developer to ensure that he calls the method
 only with valid input.
+
+Github Issues
+-------------
+
+Feature requests, todo requests and bug reports all use the Github issues. To separate them labels and naming conventions
+are used. To prevent push misuse, you need to fork the project and submit pull requests to collaborate. Because you
+are not a Github collaborator, you can't get issues assigned via the technical way. To show that you work on an issue,
+post a comment to the issue stating that fact. If you cannot continue to work on the issue, you still should make your
+current work public so that others can continue to work where you have left.
 
 Feature request
 ---------------
