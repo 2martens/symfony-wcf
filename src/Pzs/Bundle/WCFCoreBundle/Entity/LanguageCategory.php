@@ -78,7 +78,7 @@ class LanguageCategory
     /**
      * Set languageCategory.
      *
-     * @param string $languageCategory
+     * @param string $languageCategory The name this category should have
      *
      * @return    LanguageCategory
      */
@@ -102,7 +102,7 @@ class LanguageCategory
     /**
      * Add languageItem.
      *
-     * @param LanguageItem $languageItem
+     * @param LanguageItem $languageItem The language item that should be added
      *
      * @return    LanguageCategory
      */
@@ -116,7 +116,7 @@ class LanguageCategory
     /**
      * Remove languageItem.
      *
-     * @param LanguageItem $languageItem
+     * @param LanguageItem $languageItem The language item that should be removed
      */
     public function removeLanguageItem(LanguageItem $languageItem)
     {

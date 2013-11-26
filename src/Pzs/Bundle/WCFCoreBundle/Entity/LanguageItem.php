@@ -120,7 +120,7 @@ class LanguageItem
     /**
      * Set languageID.
      *
-     * @param integer $languageID
+     * @param integer $languageID The ID of the language this item belongs to
      *
      * @return    LanguageItem
      */
@@ -144,7 +144,7 @@ class LanguageItem
     /**
      * Set languageItem.
      *
-     * @param string $languageItem
+     * @param string $languageItem The name of this language item
      *
      * @return    LanguageItem
      */
@@ -168,7 +168,7 @@ class LanguageItem
     /**
      * Set languageItemValue.
      *
-     * @param string $languageItemValue
+     * @param string $languageItemValue The value of this language item
      *
      * @return    LanguageItem
      */
@@ -192,7 +192,7 @@ class LanguageItem
     /**
      * Set languageCustomItemValue.
      *
-     * @param string $languageCustomItemValue
+     * @param string $languageCustomItemValue The custom value of this language item
      *
      * @return    LanguageItem
      */
@@ -216,7 +216,7 @@ class LanguageItem
     /**
      * Set languageItemOriginIsSystem.
      *
-     * @param boolean $languageItemOriginIsSystem
+     * @param boolean $languageItemOriginIsSystem If true, this language item has been created by the system
      *
      * @return    LanguageItem
      */
@@ -240,7 +240,7 @@ class LanguageItem
     /**
      * Set languageCategoryID.
      *
-     * @param integer $languageCategoryID
+     * @param integer $languageCategoryID The ID of the language category this language item belongs to
      *
      * @return    LanguageItem
      */
@@ -264,7 +264,7 @@ class LanguageItem
     /**
      * Set packageID.
      *
-     * @param integer $packageID
+     * @param integer $packageID The ID of the package this language item belongs to
      *
      * @return    LanguageItem
      */
@@ -288,7 +288,7 @@ class LanguageItem
     /**
      * Set language.
      *
-     * @param Language $language
+     * @param Language $language The language this language item belongs to
      *
      * @return    LanguageItem
      */
@@ -312,7 +312,7 @@ class LanguageItem
     /**
      * Set languageCategory
      *
-     * @param LanguageCategory $languageCategory
+     * @param LanguageCategory $languageCategory The language category this language item belongs to
      *
      * @return    LanguageItem
      */
