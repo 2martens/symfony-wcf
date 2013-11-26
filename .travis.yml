@@ -13,5 +13,6 @@ before_script:
     - COMPOSER_ROOT_VERSION=dev-master composer --prefer-source --dev install
 
 script:
+    - find . -type f -name '*.php' |xargs -I file php -l file > /dev/null
     - ls -d src/Pzs/*/* | parallel --gnu --keep-order 'echo "Running {} tests"; phpunit --exclude-group tty,benchmark {};' || exit 1
     - echo "Running tests requiring tty"; phpunit --group tty
