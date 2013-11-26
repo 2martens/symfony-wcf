@@ -78,9 +78,9 @@ class LanguageService implements LanguageServiceInterface
     /**
      * Constructor.
      *
-     * @param \Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository         $languageRepository
-     * @param \Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository $languageCategoryRepository
-     * @param \Pzs\Bundle\WCFCoreBundle\Service\Cache\CacheServiceInterface   $cacheService
+     * @param LanguageRepository         $languageRepository         The repository for language entities.
+     * @param LanguageCategoryRepository $languageCategoryRepository The repository for language category entities.
+     * @param CacheServiceInterface      $cacheService               The cache service.
      */
     public function __construct(LanguageRepository $languageRepository,
                                 LanguageCategoryRepository $languageCategoryRepository,
