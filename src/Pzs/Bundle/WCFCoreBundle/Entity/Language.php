@@ -106,7 +106,7 @@ class Language
     /**
      * Set languageCode.
      *
-     * @param string $languageCode
+     * @param string $languageCode The code of the language (e.g 'de' or 'en')
      *
      * @return    Language
      */
@@ -130,7 +130,7 @@ class Language
     /**
      * Set languageName.
      *
-     * @param string $languageName
+     * @param string $languageName The name of the language (e.g. 'English' or 'Deutsch')
      *
      * @return   Language
      */
@@ -154,7 +154,7 @@ class Language
     /**
      * Set countryCode.
      *
-     * @param string $countryCode
+     * @param string $countryCode The country code of the language (e.g. 'gb', 'us' or 'de')
      *
      * @return    Language
      */
@@ -178,7 +178,7 @@ class Language
     /**
      * Set isDefault.
      *
-     * @param boolean $isDefault
+     * @param boolean $isDefault If true, this language will be set as default language
      *
      * @return    Language
      */
@@ -202,7 +202,7 @@ class Language
     /**
      * Set hasContent.
      *
-     * @param boolean $hasContent
+     * @param boolean $hasContent If true, this language will be set as non-empty
      *
      * @return    Language
      */
@@ -226,7 +226,7 @@ class Language
     /**
      * Add languageItem.
      *
-     * @param LanguageItem $languageItem
+     * @param LanguageItem $languageItem The language item, that should be added
      *
      * @return    Language
      */
@@ -240,7 +240,7 @@ class Language
     /**
      * Remove languageItem.
      *
-     * @param LanguageItem $languageItem
+     * @param LanguageItem $languageItem The language item that should be removed
      */
     public function removeLanguageItem(LanguageItem $languageItem)
     {
