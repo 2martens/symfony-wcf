@@ -1,6 +1,12 @@
 README
 ======
 
+Build status
+------------
+
+dev:
+[![Build Status](https://travis-ci.org/frmwrk123/symfony-wcf.png?branch=dev)](https://travis-ci.org/frmwrk123/symfony-wcf)
+
 What are the WCF extensions?
 ----------------------------
 
