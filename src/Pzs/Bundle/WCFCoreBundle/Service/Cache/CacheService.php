@@ -23,8 +23,8 @@
 
 namespace Pzs\Bundle\WCFCoreBundle\Service\Cache;
 
+use Doctrine\Common\Cache\CacheProvider;
 use Pzs\Bundle\WCFCoreBundle\Cache\Builder\CacheBuilderInterface;
-use Pzs\Bundle\WCFCoreBundle\Cache\Source\CacheSourceInterface;
 use Pzs\Bundle\WCFCoreBundle\Exception\SystemException;
 
 /**
@@ -43,20 +43,21 @@ class CacheService implements CacheServiceInterface
     private $cacheData;
 
     /**
-     * The cache source.
-     * @var \Pzs\Bundle\WCFCoreBundle\Cache\Source\CacheSourceInterface
+     * The cache provider.
+     * @var \Doctrine\Common\Cache\CacheProvider
      */
-    private $cacheSource;
+    private $cacheProvider;
 
     /**
      * Constructor.
      *
-     * @param CacheSourceInterface $cacheSource
+     * @param CacheProvider $cacheProvider Provides access to the cache.
      */
-    public function __construct(CacheSourceInterface $cacheSource)
+    public function __construct(CacheProvider $cacheProvider)
     {
         $this->cacheData = array();
-        $this->cacheSource = $cacheSource;
+        $this->cacheProvider = $cacheProvider;
+        $this->cacheProvider->setNamespace('wcf_');
     }
 
     /**
@@ -67,8 +68,8 @@ class CacheService implements CacheServiceInterface
         $cacheName = $this->getCacheName($cacheBuilder, $parameters);
         if (!isset($this->cacheData[$cacheName])) {
             // fetch cache or rebuild if missing
-            $this->cacheData[$cacheName] = $this->cacheSource->get($cacheName, $cacheBuilder->getMaxLifetime());
-            if ($this->cacheData[$cacheName] === null) {
+            $this->cacheData[$cacheName] = $this->cacheProvider->fetch($cacheName);
+            if ($this->cacheData[$cacheName] === false) {
                 // update cache
                 $this->set($cacheBuilder, $parameters);
             }
@@ -92,7 +93,7 @@ class CacheService implements CacheServiceInterface
     {
         $cacheName = $this->getCacheName($cacheBuilder, $parameters);
         $this->cacheData[$cacheName] = $cacheBuilder->getData($parameters);
-        $this->cacheSource->set($cacheName, $this->cacheData[$cacheName], $cacheBuilder->getMaxLifetime());
+        $this->cacheProvider->save($cacheName, $this->cacheData[$cacheName], $cacheBuilder->getMaxLifetime());
     }
 
     /**
@@ -100,7 +101,7 @@ class CacheService implements CacheServiceInterface
      */
     public function reset(CacheBuilderInterface $cacheBuilder, array $parameters = array())
     {
-        $this->cacheSource->flush($this->getCacheName($cacheBuilder, $parameters), empty($parameters));
+        $this->cacheProvider->delete($this->getCacheName($cacheBuilder, $parameters));
     }
 
     /**
@@ -108,13 +109,13 @@ class CacheService implements CacheServiceInterface
      */
     public function resetAll()
     {
-        $this->cacheSource->flushAll();
+        $this->cacheProvider->flushAll();
     }
 
     /**
      * Returns cache index hash.
      *
-     * @param array $parameters
+     * @param array $parameters The parameters that should be considered.
      *
      * @return    string
      */
@@ -155,7 +156,7 @@ class CacheService implements CacheServiceInterface
     /**
      * Unifies parameter order, numeric indices will be discarded.
      *
-     * @param array $parameters
+     * @param array $parameters The parameters that should be ordered.
      *
      * @return    array
      */

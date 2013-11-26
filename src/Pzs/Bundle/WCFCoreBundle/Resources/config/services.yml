@@ -1,7 +1,7 @@
 parameters:
     pzs.twig.wcf_extension.class: Pzs\Bundle\WCFCoreBundle\Twig\WCFCoreExtension
     cache_service.class: Pzs\Bundle\WCFCoreBundle\Service\Cache\CacheService
-    cache_service.source: Pzs\Bundle\WCFCoreBundle\Cache\Source\DiskCacheSource
+    cache_service.provider: Doctrine\Common\Cache\FilesystemCache
     language_service.class: Pzs\Bundle\WCFCoreBundle\Service\Language\LanguageService
     language_repository.class: Pzs\Bundle\WCFCoreBundle\Repository\LanguageRepository
     language_repository.factory_argument: "PzsWCFCoreBundle:Language"
@@ -17,9 +17,9 @@ services:
             - { name: twig.extension }
     cache_service:
         class: "%cache_service.class%"
-        source: "%cache_service.source%"
+        provider: "%cache_service.source%"
         arguments:
-            - "@cache_service.source"
+            - "@cache_service.provider"
     language_service:
         class: "%language_service.class%"
         arguments: 

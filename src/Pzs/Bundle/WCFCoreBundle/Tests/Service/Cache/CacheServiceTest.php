@@ -46,14 +46,14 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        // TODO: add mocked CacheSource
-        $cacheSource = $this->getMockBuilder('\Pzs\Bundle\WCFCoreBundle\Cache\Source\TestCacheSource')
+        $cacheProvider = $this->getMockBuilder('\Doctrine\Common\Cache\ArrayCache')
             ->disableOriginalConstructor()
             ->getMock();
-        $cacheSource->expects(parent::once())
-            ->method('get')
+        $cacheProvider->expects(parent::once())
+            ->method('fetch')
             ->will(parent::returnCallback(array($this, 'getCacheCallback')));
-        $this->cacheService = new CacheService($cacheSource);
+
+        $this->cacheService = new CacheService($cacheProvider);
     }
 
     /**
@@ -86,7 +86,7 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * Returns arrays depending on the input.
      *
-     * @return    string[]|null
+     * @return    string[]|false
      */
     public function getCacheCallback()
     {
@@ -96,7 +96,7 @@ class CacheServiceTest extends \PHPUnit_Framework_TestCase
             return array('name' => 'alfonso');
         }
 
-        return null;
+        return false;
     }
 
     /**
