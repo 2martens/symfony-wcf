@@ -83,7 +83,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function getHash($value)
+    public static function getHash($value)
     {
         return sha1($value);
     }
@@ -93,7 +93,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function getRandomID()
+    public static function getRandomID()
     {
         return self::getHash(microtime() . uniqid(mt_rand(), true));
     }
@@ -105,7 +105,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function unifyNewlines($string)
+    public static function unifyNewlines($string)
     {
         return preg_replace("%(\r\n)|(\r)%", "\n", $string);
     }
@@ -117,7 +117,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function trim($text)
+    public static function trim($text)
     {
         // Whitespace + (narrow) non breaking spaces.
         // No one can triforce now.
@@ -134,7 +134,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function encodeHTML($input)
+    public static function encodeHTML($input)
     {
         if (is_object($input)) {
             $input = $input->__toString();
@@ -150,7 +150,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function encodeJS($input)
+    public static function encodeJS($input)
     {
         if (is_object($input)) {
             $input = $input->__toString();
@@ -181,7 +181,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function encodeJSON($string)
+    public static function encodeJSON($string)
     {
         $string = self::encodeJS($string);
 
@@ -200,7 +200,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function decodeHTML($string)
+    public static function decodeHTML($string)
     {
         $string = str_ireplace('&nbsp;', ' ', $string); // convert non-breaking spaces to ascii 32; not ascii 160
         
@@ -217,17 +217,20 @@ final class StringUtil
     public function formatNumeric($numeric)
     {
         if (is_int($numeric)) {
-            return self::formatInteger($numeric);
+            return $this->formatInteger($numeric);
         }
         elseif (is_float($numeric)) {
-            return self::formatDouble($numeric);
+            return $this->formatDouble($numeric);
         }
         else {
+            // if $numeric contains a string, this if statement is executed
+            // if the string contains a float value, it is formatted as double
             if (floatval($numeric) - (float) intval($numeric)) {
-                return self::formatDouble($numeric);
+                return $this->formatDouble($numeric);
             }
+            // otherwise it is formatted as integer
             else {
-                return self::formatInteger(intval($numeric));
+                return $this->formatInteger(intval($numeric));
             }
         }
     }
@@ -241,7 +244,7 @@ final class StringUtil
      */
     public function formatInteger($integer)
     {
-        $integer = self::addThousandsSeparator($integer);
+        $integer = $this->addThousandsSeparator($integer);
 
         // format minus
         $integer = self::formatNegative($integer);
@@ -261,7 +264,7 @@ final class StringUtil
     {
         // consider as integer, if no decimal places found
         if (!$maxDecimals && preg_match('~^(-?\d+)(?:\.(?:0*|00[0-4]\d*))?$~', $double, $match)) {
-            return self::formatInteger($match[1]);
+            return $this->formatInteger($match[1]);
         }
 
         // round
@@ -271,7 +274,6 @@ final class StringUtil
         if ($maxDecimals < 2 && substr($double, -1) == '0') $double = substr($double, 0, -1);
 
         // replace decimal point
-        // TODO replace WCF with DependencyInjection
         $double = str_replace('.', $this->languageService->getLanguageItem('wcf.global.decimalPoint'), $double);
 
         // add thousands separator
@@ -309,7 +311,7 @@ final class StringUtil
      *                       
      * @return string
      */
-    public function formatNegative($number)
+    public static function formatNegative($number)
     {
         return str_replace('-', self::MINUS, $number);
     }
@@ -321,7 +323,7 @@ final class StringUtil
      *                       
      * @return string
      */
-    public function firstCharToUpperCase($string)
+    public static function firstCharToUpperCase($string)
     {
         return mb_strtoupper(mb_substr($string, 0, 1)).mb_substr($string, 1);
     }
@@ -333,7 +335,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function firstCharToLowerCase($string)
+    public static function firstCharToLowerCase($string)
     {
         return mb_strtolower(mb_substr($string, 0, 1)).mb_substr($string, 1);
     }
@@ -345,7 +347,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function wordsToUpperCase($string)
+    public static function wordsToUpperCase($string)
     {
         return mb_convert_case($string, MB_CASE_TITLE);
     }
@@ -363,7 +365,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function replaceIgnoreCase($search, $replace, $subject, &$count = 0)
+    public static function replaceIgnoreCase($search, $replace, $subject, &$count = 0)
     {
         $startPos = mb_strpos(mb_strtolower($subject), mb_strtolower($search));
         if ($startPos === false) {
@@ -381,11 +383,11 @@ final class StringUtil
      * Alias to php str_split() function with multibyte support.
      * 
      * @param string  $string The string that should be split
-     * @param integer $length The length of each of the substrings that will be split off of $string
+     * @param integer $length The length of each of the substrings (optional, by default 1)
      * 
      * @return string[]
      */
-    public function split($string, $length = 1)
+    public static function split($string, $length = 1)
     {
         $result = array();
         for ($i = 0, $max = mb_strlen($string); $i < $max; $i += $length) {
@@ -404,7 +406,7 @@ final class StringUtil
      * 
      * @return boolean True, if $haystack starts with $needle, false otherwise.
      */
-    public function startsWith($haystack, $needle, $ci = false)
+    public static function startsWith($haystack, $needle, $ci = false)
     {
         if ($ci) {
             $haystack = mb_strtolower($haystack);
@@ -417,13 +419,13 @@ final class StringUtil
     /**
      * Returns true if $haystack ends with $needle or if the length of $needle is 0.
      * 
-     * @param string  $haystack The haystack
-     * @param string  $needle   The needle
-     * @param boolean $ci       case insensitive
+     * @param string  $haystack The string to be checked for ending with $needle
+     * @param string  $needle   The string to be found at the end of $haystack
+     * @param boolean $ci       Case insensitive or not. Default = false.
      * 
      * @return	boolean
      */
-    public function endsWith($haystack, $needle, $ci = false)
+    public static function endsWith($haystack, $needle, $ci = false)
     {
         if ($ci) {
             $haystack = mb_strtolower($haystack);
@@ -447,7 +449,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function pad($input, $padLength, $padString=' ', $padType=STR_PAD_RIGHT)
+    public static function pad($input, $padLength, $padString=' ', $padType=STR_PAD_RIGHT)
     {
         $additionalPadding = strlen($input) - mb_strlen($input);
         
@@ -462,7 +464,7 @@ final class StringUtil
      * 
      * @return	string
      */
-    public function unescape($string, $chars = '"')
+    public static function unescape($string, $chars = '"')
     {
         for ($i = 0, $j = strlen($chars); $i < $j; $i++) {
             $string = str_replace('\\'.$chars[$i], $chars[$i], $string);
@@ -478,7 +480,7 @@ final class StringUtil
      * 
      * @return string utf-8 bytes
      */
-    public function getCharacter($dec)
+    public static function getCharacter($dec)
     {
         if ($dec < 128) {
             $utf = chr($dec);
@@ -503,9 +505,9 @@ final class StringUtil
      * 
      * @see http://www1.tip.nl/~t876506/utf8tbl.html
      * 
-     * @return integer
+     * @return integer|boolean false on error
      */
-    public function getCharValue($c)
+    public static function getCharValue($c)
     {
         $ud = 0;
         if (ord($c{0}) >= 0 && ord($c{0}) <= 127) {
@@ -542,7 +544,7 @@ final class StringUtil
      * 
      * @return	string
      */
-    public function encodeAllChars($string)
+    public static function encodeAllChars($string)
     {
         $result = '';
         for ($i = 0, $j = mb_strlen($string); $i < $j; $i++) {
@@ -560,9 +562,9 @@ final class StringUtil
      * 
      * @return boolean
      */
-    public function isASCII($string)
+    public static function isASCII($string)
     {
-        return preg_match('/^[\x00-\x7F]*$/', $string);
+        return (boolean) preg_match('/^[\x00-\x7F]*$/', $string);
     }
     
     /**
@@ -574,7 +576,7 @@ final class StringUtil
      * 
      * @return	boolean
      */
-    public function isUTF8($string)
+    public static function isUTF8($string)
     {
         /*return preg_match('/^(
                 [\x09\x0A\x0D\x20-\x7E]*		# ASCII
@@ -605,7 +607,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function escapeCDATA($string)
+    public static function escapeCDATA($string)
     {
         return str_replace(']]>', ']]]]><![CDATA[>', $string);
     }
@@ -621,7 +623,7 @@ final class StringUtil
      *
      * @return string converted string
      */
-    public function convertEncoding($inCharset, $outCharset, $string)
+    public static function convertEncoding($inCharset, $outCharset, $string)
     {
         if ($inCharset == 'ISO-8859-1' && $outCharset == 'UTF-8') {
             return utf8_encode($string);
@@ -640,7 +642,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function stripHTML($string)
+    public static function stripHTML($string)
     {
         return preg_replace(self::HTML_PATTERN, '', preg_replace(self::HTML_COMMENT_PATTERN, '', $string));
     }
@@ -653,7 +655,7 @@ final class StringUtil
      * 
      * @return boolean
      */
-    public function executeWordFilter($word, $filter)
+    public static function executeWordFilter($word, $filter)
     {
         $word = mb_strtolower($word);
         
@@ -687,7 +689,7 @@ final class StringUtil
      * 
      * @return string truncated string
      */
-    public function truncate($string, $length = 80, $etc = self::HELLIP, $breakWords = false)
+    public static function truncate($string, $length = 80, $etc = self::HELLIP, $breakWords = false)
     {
         if ($length == 0) {
             return '';
@@ -717,7 +719,7 @@ final class StringUtil
      * 
      * @return string truncated string
      */
-    public function truncateHTML($string, $length = 500, $etc = self::HELLIP, $breakWords = false)
+    public static function truncateHTML($string, $length = 500, $etc = self::HELLIP, $breakWords = false)
     {
         if (mb_strlen(self::stripHTML($string)) <= $length) {
             return $string;
@@ -812,7 +814,7 @@ final class StringUtil
      * 
      * @return string anchor tag
      */
-    public function getAnchorTag($url, $title = '', $encodeTitle = true)
+    public static function getAnchorTag($url, $title = '', $encodeTitle = true)
     {
         $external = true;
         // TODO resolve dependency to application handler
@@ -863,7 +865,7 @@ final class StringUtil
      * 
      * @return	string
      */
-    public function splitIntoChunks($string, $length = 75, $break = "\r\n")
+    public static function splitIntoChunks($string, $length = 75, $break = "\r\n")
     {
         return mb_ereg_replace('.{'.$length.'}', "\\0".$break, $string);
     }
@@ -877,7 +879,7 @@ final class StringUtil
      * 
      * @return string
      */
-    public function wordwrap($string, $width = 50, $break = ' ')
+    public static function wordwrap($string, $width = 50, $break = ' ')
     {
         $result = '';
         $substrings = explode($break, $string);
