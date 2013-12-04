@@ -276,6 +276,113 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
         parent::assertTrue(StringUtil::isASCII('Hello world!'));
         parent::assertFalse(StringUtil::isASCII('Hallöchen Wöchli'));
     }
+
+    /**
+     * Tests the method isUTF8.
+     */
+    public function testIsUTF8()
+    {
+        parent::assertTrue(StringUtil::isUTF8('Mütterchen, daß ömchen des ätherischen Väterchen'));
+        parent::assertFalse(StringUtil::isUTF8('Muetterchen und Vaeterchen'));
+        
+        // TODO: improve test
+    }
+
+    /**
+     * Tests the method escapeCDATA.
+     */
+    public function testEscapeCDATA()
+    {
+        $testString = '<![CDATA[hallo]]>';
+        $escapedString = '<![CDATA[hallo]]]]><![CDATA[>';
+        parent::assertEquals($escapedString, StringUtil::escapeCDATA($testString));
+    }
+
+    /**
+     * Tests the method convertEncoding.
+     */
+    public function testConvertEncoding()
+    {
+        $utf8String = 'Hallöchen, Mütterchen Faßberg';
+        $iso88591 = 'Hall'."\xf6".'chen, M'."\xfc".'tterchen Fa'."\xdf".'berg';
+        parent::assertEquals($utf8String, StringUtil::convertEncoding('ISO-8859-1', 'UTF-8', 
+            $iso88591));
+        parent::assertEquals($iso88591, StringUtil::convertEncoding('UTF-8', 'ISO-8859-1',
+            $utf8String));
+    }
+
+    /**
+     * Tests the method stripHTML.
+     */
+    public function testStripHTML()
+    {
+        $htmlString = '<html><head><title>Hallo Welt</title></head><body><!-- a comment --><p>You funny bastard</p></body></html>';
+        parent::assertEquals('Hallo WeltYou funny bastard', StringUtil::stripHTML($htmlString));
+    }
+
+    /**
+     * Tests the method executeWordFilter.
+     */
+    public function testExecuteWordFilter()
+    {
+        $filter = 'dumbass'."\n".'idiot'."\n".'Hirnlos*';
+        $word1 = 'Hirnlos';
+        $word2 = 'idiot';
+        $word3 = 'Dumbass';
+        $word4 = 'clean';
+        
+        parent::assertFalse(StringUtil::executeWordFilter($word1, $filter));
+        parent::assertFalse(StringUtil::executeWordFilter($word2, $filter));
+        parent::assertFalse(StringUtil::executeWordFilter($word3, $filter));
+        parent::assertTrue(StringUtil::executeWordFilter($word4, $filter));
+    }
+
+    /**
+     * Tests the method truncate.
+     */
+    public function testTruncate()
+    {
+        $sentence = 'This is a very long sentence. In fact it is much too long for a short abstract.';
+        parent::assertEquals('This is a very long'.StringUtil::HELLIP, StringUtil::truncate($sentence, 30));
+        parent::assertEquals('This is a very long sentenc'.StringUtil::HELLIP, StringUtil::truncate($sentence, 30, 
+                StringUtil::HELLIP, true));
+        parent::assertEquals('This is a very long'."\n".'Read more', StringUtil::truncate($sentence, 30, 
+                "\n".'Read more'));
+    }
+
+    /**
+     * Tests the method truncateHTML.
+     */
+    public function testTruncateHTML()
+    {
+        $html = '<p>Hell\'s Angels on route.</p>';
+        parent::assertEquals('<p>Hell\'s Angels</p>'.StringUtil::HELLIP, StringUtil::truncateHTML($html, 18));
+        // TODO: write understandable tests
+    }
+
+    /**
+     * Tests the method splitIntoChunks.
+     */
+    public function testSplitIntoChunks()
+    {
+        $text = 'Hello world, you wonderful world. There are so many nice people out there. Why do you read this?';
+        $expected = 'Hello world, you wonderful world.'."\r\n".' There are so many nice people ou'."\r\n".'t there. '
+        .'Why do you read this?';
+        
+        parent::assertEquals($expected, StringUtil::splitIntoChunks($text, 33));
+        parent::assertEquals(str_replace("\r\n", "\n", $expected), StringUtil::splitIntoChunks($text, 33, "\n"));
+    }
+
+    /**
+     * Tests the method wordwrap.
+     */
+    public function testWordwrap()
+    {
+        $text = 'Hello world, you wonderful world. There are so many nice people out there. Why do you read this?';
+        $expected = 'Hello world, you wonder ful world. There are so many nice people out there. '
+        .'Why do you read this?';
+        parent::assertEquals('', StringUtil::wordwrap($text, 6));
+    }
     
     // TODO implement remaining tests
     

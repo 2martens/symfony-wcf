@@ -589,7 +589,7 @@ final class StringUtil
             |	\xF4[\x80-\x8F][\x80-\xBF]{2}		# plane 16
             )*$/x', $string);
         */
-        return preg_match('/(
+        return (boolean) preg_match('/(
 				[\xC2-\xDF][\x80-\xBF]			# non-overlong 2-byte
 			|	\xE0[\xA0-\xBF][\x80-\xBF]		# excluding overlongs
 			|	[\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}	# straight 3-byte
@@ -721,6 +721,7 @@ final class StringUtil
      */
     public static function truncateHTML($string, $length = 500, $etc = self::HELLIP, $breakWords = false)
     {
+        // TODO: add inline documentation to explain what exactly is done and *why*
         if (mb_strlen(self::stripHTML($string)) <= $length) {
             return $string;
         }
@@ -874,7 +875,7 @@ final class StringUtil
      * Simple multi-byte safe wordwrap() function.
      * 
      * @param string  $string The string
-     * @param integer $width  The width
+     * @param integer $width  If a word is longer than this width, it gets separated into two or more words
      * @param string  $break  The break to get substrings from the string
      * 
      * @return string
