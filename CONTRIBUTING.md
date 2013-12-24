@@ -198,8 +198,9 @@ Pull requests
 If you want to add a new feature or fix an issue, use a pull request for that. Before you start to code, create a title
 branch for your particular work.
 
-Pull requests always have dev as the base. If you want to fix a bug report, name the branch fix/<issueNr>. If you want
-to implement a feature request/todo request, name the branch feature/<issueNr>.
+Pull requests always have dev as the base. If you want to fix a bug report, name the branch ``fix/<issueNr>``. If you 
+want
+to implement a feature request/todo request, name the branch ``feature/<issueNr>``.
 
 Once you are done with your work, submit it as a pull request (possible via Github GUI from your fork). As the base branch
 you must select the dev branch of the [original project][2]. The title of the pull requests should be named after your
