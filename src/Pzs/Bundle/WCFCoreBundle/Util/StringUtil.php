@@ -210,7 +210,7 @@ final class StringUtil
     /**
      * Formats a numeric.
      * 
-     * @param number $numeric The number that should formatted
+     * @param number|string $numeric The number that should formatted
      * 
      * @return string
      */

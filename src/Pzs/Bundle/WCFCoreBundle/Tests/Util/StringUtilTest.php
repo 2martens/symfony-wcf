@@ -207,6 +207,7 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
         parent::assertTrue(StringUtil::endsWith('SymfonyWCF ist TOll', 'toll', true));
         parent::assertFalse(StringUtil::endsWith('SymfonyWCF ist toll', 'Toll'));
         parent::assertFalse(StringUtil::endsWith('ymfonyWCF ist toll', 'TOLL'));
+        parent::assertTrue(StringUtil::endsWith('Symfony is cool', ''));
     }
 
     /**
@@ -348,6 +349,7 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 StringUtil::HELLIP, true));
         parent::assertEquals('This is a very long'."\n".'Read more', StringUtil::truncate($sentence, 30, 
                 "\n".'Read more'));
+        parent::assertEquals('', StringUtil::truncate('Hallo', 0));
     }
 
     /**
@@ -355,8 +357,12 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
      */
     public function testTruncateHTML()
     {
-        $html = '<p>Hell\'s Angels on route.</p>';
-        parent::assertEquals('<p>Hell\'s Angels</p>'.StringUtil::HELLIP, StringUtil::truncateHTML($html, 18));
+        $html = '<p>Hell\'s <i>Angels</i> on route.</p>';
+        $htmlNoChange = '<p>Hell\'s Angels on.</p>';
+        parent::assertEquals('<p>Hell\'s <i>Angels</i></p>'.StringUtil::HELLIP, StringUtil::truncateHTML($html, 18));
+        parent::assertEquals('<p>Hell\'s <i>Angels</i> o</p>'.StringUtil::HELLIP, StringUtil::truncateHTML($html, 18, 
+                StringUtil::HELLIP, true));
+        parent::assertEquals($htmlNoChange, StringUtil::truncateHTML($htmlNoChange, 18));
         // TODO: write understandable tests
     }
 
@@ -381,7 +387,17 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
         $text = 'Hello world, you wonderful world. There are so many nice people out there. Why do you read this?';
         $expected = 'Hello world, you wonder ful world. There are so many nice people out there. '
         .'Why do you read this?';
-        parent::assertEquals('', StringUtil::wordwrap($text, 6));
+        parent::assertEquals($expected, StringUtil::wordwrap($text, 6));
+    }
+
+    /**
+     * Tests the method getHash.
+     */
+    public function testGetHash()
+    {
+        $text = 'hallo';
+        $hash = sha1($text);
+        parent::assertEquals($hash, StringUtil::getHash($text));
     }
     
     // TODO implement remaining tests
