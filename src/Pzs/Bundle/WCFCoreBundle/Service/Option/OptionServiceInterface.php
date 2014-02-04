@@ -21,30 +21,23 @@
  * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 
-namespace Pzs\Bundle\WCFCoreBundle\Cache\Builder;
+namespace Pzs\Bundle\WCFCoreBundle\Service\Option;
 
 /**
- * Defines behaviour of cache builders.
+ * Provides functionality for the option system.
  * 
  * @author    Jim Martens <jim1@live.de>
  * @copyright 2013 Jim Martens
  * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
-interface CacheBuilderInterface
+interface OptionServiceInterface
 {
     /**
-     * Returns the data that ought to be cached.
-     *
-     * @param array $parameters The optional parameters that can be given to the CacheBuilder
-     *
-     * @return    array
+     * Rebuilds the option file.
+     * 
+     * @param string $filename The filename under which the options file should be saved
+     * 
+     * @return string The written output (useful for debugging)
      */
-    public function getData(array $parameters = array());
-
-    /**
-     * Returns maximum lifetime for cache resource.
-     *
-     * @return    integer
-     */
-    public function getMaxLifetime();
+    public function rebuildFile($filename);
 }

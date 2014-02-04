@@ -7,6 +7,12 @@ parameters:
     language_repository.factory_argument: "PzsWCFCoreBundle:Language"
     language_category_repository.class: Pzs\Bundle\WCFCoreBundle\Repository\LanguageCategoryRepository
     language_category_repository.factory_argument: "PzsWCFCoreBundle:LanguageCategory"
+    option_repository.class: Pzs\Bundle\WCFCoreBundle\Repository\OptionRepository
+    option_repository.factory_argument: "PzsWCFCoreBundle:Option"
+    option_category_repository.class: Pzs\Bundle\WCFCoreBundle\Repository\OptionCategoryRepository
+    option_category_repository.factory_argument: "PzsWCFCoreBundle:OptionCategory"
+    filesystem.class: Symfony\Component\Filesystem\Filesystem
+    filesystem_factory.class: Pzs\Bundle\WCFCoreBundle\Util\FilesystemFactory
 
 services:
     pzs.twig.wcf_extension:
@@ -20,6 +26,17 @@ services:
         provider: "%cache_service.source%"
         arguments:
             - "@cache_service.provider"
+    filesystem:
+        class: "%filesystem.class%"
+        factory_class: "%filesystem_factory.class%"
+        factory_method: get    
+    option_service:
+        class: "%option_service.class%"
+        arguments:
+            - "@option_repository"
+            - "@option_category_repository"
+            - "@cache_service"
+            - "@filesystem"
     language_service:
         class: "%language_service.class%"
         arguments: 
@@ -38,3 +55,15 @@ services:
         factory_method: "getRepository"
         arguments:
             - "@language_category_repository.factory_argument"
+    option_repository:
+            class: "%option_repository.class%"
+            factory_service: doctrine.orm.entity_manager
+            factory_method: "getRepository"
+            arguments:
+                - "@option_repository.factory_argument"
+    option_category_repository:
+            class: "%option_category_repository.class%"
+            factory_service: doctrine.orm.entity_manager
+            factory_method: "getRepository"
+            arguments:
+                - "@option_category_repository.factory_argument"

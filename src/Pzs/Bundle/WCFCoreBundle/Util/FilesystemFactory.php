@@ -21,30 +21,27 @@
  * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
 
-namespace Pzs\Bundle\WCFCoreBundle\Cache\Builder;
+namespace Pzs\Bundle\WCFCoreBundle\Util;
+
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
- * Defines behaviour of cache builders.
+ * A factory for the filesystem component's Filesystem class.
  * 
  * @author    Jim Martens <jim1@live.de>
  * @copyright 2013 Jim Martens
  * @license   http://www.gnu.org/licenses/lgpl-3.0 GNU Lesser General Public License, version 3
  */
-interface CacheBuilderInterface
+class FilesystemFactory
 {
     /**
-     * Returns the data that ought to be cached.
-     *
-     * @param array $parameters The optional parameters that can be given to the CacheBuilder
-     *
-     * @return    array
+     * Returns a filesystem.
+     * 
+     * @return Filesystem
      */
-    public function getData(array $parameters = array());
-
-    /**
-     * Returns maximum lifetime for cache resource.
-     *
-     * @return    integer
-     */
-    public function getMaxLifetime();
+    public static function get()
+    {
+        return new Filesystem();
+    }
 }
+ 
